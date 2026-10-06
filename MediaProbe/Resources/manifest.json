@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "SiftX Media Probe",
+  "description": "Finds ordinary webpage media locally for the native SiftX media menu.",
+  "version": "1.0.0",
+  "browser_action": { "default_title": "查看当前网页媒体" },
+  "permissions": ["nativeMessaging", "webRequest", "tabs", "<all_urls>"],
+  "background": { "scripts": ["probe-core.js", "background.js"], "persistent": true },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["probe-core.js", "content.js"],
+    "run_at": "document_start",
+    "all_frames": true
+  }]
+}

@@ -1,0 +1,10 @@
+.build/
+Build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+*.log
+__pycache__/
+*.py[cod]
+.workbuddy/
