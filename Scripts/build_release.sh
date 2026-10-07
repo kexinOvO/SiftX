@@ -5,6 +5,7 @@ cd "$task_root"
 if [ ! -x App/Resources/YouTubeTools/yt-dlp ] || [ ! -x App/Resources/YouTubeTools/qjs ]; then
   python3 Scripts/fetch_youtube_tools.py
 fi
+python3 Scripts/prepare_third_party.py --fetch
 python3 Scripts/prepare_release_products.py
 python3 Scripts/generate_project.py
 xcodebuild -project SiftX.xcodeproj -scheme SiftX -configuration Release \
@@ -12,3 +13,4 @@ xcodebuild -project SiftX.xcodeproj -scheme SiftX -configuration Release \
   -derivedDataPath Build/DerivedData -clonedSourcePackagesDirPath Build/Packages \
   CONFIGURATION_BUILD_DIR="$task_root/Build" build
 codesign --verify --deep --strict Build/SiftX.app
+python3 Scripts/package_distribution.py

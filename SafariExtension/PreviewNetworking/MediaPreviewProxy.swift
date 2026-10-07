@@ -68,7 +68,7 @@ public actor MediaPreviewProxy {
                 url = try master(video: video, audio: audio, candidate: candidate)
             case .dash:
                 url = try await dash(candidate)
-            case .youtube:
+            case .youtube, .bilibili:
                 throw MediaError.unsupported("请使用网页播放器预览此视频。")
             }
             guard !stopped else { throw CancellationError() }

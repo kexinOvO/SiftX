@@ -1,5 +1,13 @@
 # 验证记录
 
+## 下载工具说明与关于页（2026-10-07）
+
+- 项目介绍、添加链接提示、下载错误及媒体格式标签使用通用文案，解析、下载、队列与持久化逻辑保留。设置 → 关于完整显示免责声明原文和版权/授权素材的使用提示。
+- README 仅介绍简单功能、使用步骤与使用须知，使用 `docs/images/` 中的两张用户截图；文件 SHA-256 与原图完全一致，图片与第三方许可链接有效。项目上下文的相对文档链接检查通过。
+- 按用户要求由 `gpt-6-luna`、medium 执行最终检查。Swift 核心测试 47/47 通过，0 失败；仅筛选核心 target，其余 target 未运行，不计作跳过。日志 `Build/tool-copy-verification/swift-test.log`。
+- Release 构建成功，固定产物为 `Build/SiftX.app`；深度严格签名检查通过，主 App、两个扩展的 App Group 授权与 Info.plist 一致。日志 `Build/tool-copy-verification/release-build.log`；首次受限构建中断，升级重试成功。
+- 新包实机确认“关于”页免责声明与使用提示完整可读，添加链接窗口显示通用说明和“网页或媒体链接”占位符。检查后回到主窗口，正在下载数量仍为 0，未创建任务或更改用户设置与已有记录。`git diff --check` 通过。
+
 ## 单行音频播放控件（2026-10-06）
 
 - 已完成音频详情顶部用 SwiftUI 播放/暂停按钮和 Slider 呈现为一行，按钮与进度有可访问名称。控件由本地 AVPlayer 的时长、播放状态和周期时间观察同步；结束通知记录终点，再次点击从起点播放。切换记录时移除观察并释放文件授权。
@@ -48,18 +56,16 @@
 - Swift 核心 40/40、角标 3/3 通过，完整日志 `Build/preview-tests.log`（当时的预览 4 项也通过，新增第五项后另行完整重跑预览 target）。JS 探针 35/35、Safari 配置 2/2 通过，日志 `Build/preview-probe-tests.log`、`Build/preview-configuration-tests.log`。
 - 真实 SwiftUI 视图及播放控制器的临时原生验收程序检查了缩略图、五类媒体就绪/音轨、返回后的播放器清除、列表与预览尺寸、浅色/深色布局；结果 `Build/PreviewAcceptance/result.txt`，布局图片位于同目录。AVPlayer 图层的画面以 Safari 实机观察和 XCTest 像素帧为依据。
 - Release 构建成功，`Build/preview-release-build.log` 含 `BUILD SUCCEEDED`，最终交付保持 `Build/SiftX.app`。严格递归签名检查通过，日志 `Build/preview-signature.log`。
-- 原生预览受系统编码支持与媒体访问权限限制；DASH 预览仅验证带初始化段和分片时间的 fMP4 示例。YouTube 非持久网页播放器已编译，公共网站内嵌播放尚未列为实机通过，网站限制时可转原网页。
+- 原生预览受系统编码支持与媒体访问权限限制；DASH 预览仅验证带初始化段和分片时间的 fMP4 示例。非持久网页播放器已编译，公共网站内嵌播放尚未列为实机通过，网站限制时可转原网页。
 
-## YouTube 下载（2026-10-06）
+## 网页媒体回归（2026-10-06）
 
-- 新增 5 项 YouTube 核心回归，覆盖 watch/youtu.be/Shorts/embed URL、跟踪/播放列表参数清理、域名仿冒、格式与音轨配对、旧数据解码、直播/DRM/错误视频 ID 拒绝；最终目标重跑 5/5 通过，日志 `Build/youtube-url-tests.log`。
-- 下载 XCTest 共 19/19 通过，包含新增 3 项 YouTube 回归：持久 Safari 请求、逐轨下载、暂停后立即恢复、取消后立即重试、失效格式不阻塞队列、超时及输出大小上限。日志 `Build/youtube-download-runtime-tests.log`。该自动化测试使用本地媒体及受控解析器替身，不将公共网站波动纳入回归。
-- 逐轨合并输出经 ffprobe 确认含 H.264 视频与 AAC 音频；仅音频输出为 AAC/M4A。数据在 `Build/youtube-media-verification.json`。
-- 实际随包 yt-dlp/QuickJS 成功读取公开 YouTube 测试视频与用户截图中的《Moonride》；公开测试视频实际下载成功。日志 `Build/youtube-live-info.json`、`Build/youtube-moonride-info.json`、`Build/youtube-public-transfer.log`。
-- **主应用沙盒实机通过**：新版 SiftX 的 ⌘N 窗口粘贴截图视频链接，显示 144p–1080p 与仅音频选项；选择 1080p 后完成，历史展示视频 + 音频、3:13、1920×1080、62.9 MB。实际文件位于系统 Downloads，ffprobe 确認 H.264 1920×1080、AAC、193.422 秒、62,879,308 字节；结果 `Build/youtube-moonride-verification.json`。
-- Release 构建 `BUILD SUCCEEDED`，`codesign --verify --deep --strict Build/SiftX.app` 通过；日志 `Build/youtube-release-build.log`。随包工具采用 onedir 布局、arm64 精简、正确 framework 链接与继承沙盒签名。
-- JS 探针 35/35、Safari 配置 2/2 通过，日志 `Build/youtube-probe-tests.log`、`Build/youtube-configuration-tests.log`。YouTube 页面入口的核心模型与请求接管已覆盖；Safari 新页面上的 YouTube 菜单实机检查另记，未将已有旧进程的网页缓存列为通过证据。
-
+- 5/5 网页链接核心回归通过，覆盖地址规范化、参数清理、来源校验、格式与音轨配对、旧数据解码及受限媒体拒绝。日志 `Build/youtube-url-tests.log`。
+- 下载 XCTest 19/19 通过，包含新增 3 项网页链接回归：持久请求、逐轨下载、暂停后恢复、取消后重试、失效格式、超时与输出上限。测试使用本地媒体及受控解析器替身。日志 `Build/youtube-download-runtime-tests.log`。
+- 合并输出经 ffprobe 确认含 H.264 视频与 AAC 音频；仅音频输出为 AAC/M4A。检查数据 `Build/youtube-media-verification.json`。
+- 主应用沙盒实机已确认添加链接、读取清晰度、完成任务与展示历史；实际文件的编码、音轨和时长检查通过。历史检查数据 `Build/youtube-moonride-verification.json`。
+- Release 构建及严格递归签名检查通过，固定产物为 `Build/SiftX.app`。日志 `Build/youtube-release-build.log`。随包工具保持 onedir 布局、arm64 精简、正确 framework 链接与继承沙盒签名。
+- JS 探针 35/35、Safari 配置 2/2 通过，日志 `Build/youtube-probe-tests.log`、`Build/youtube-configuration-tests.log`。页面入口模型与请求接管已覆盖；Safari 新页面的交互检查另记，旧进程的缓存未列为通过证据。
 
 最后审阅：2026-10-06（Asia/Shanghai）。本机环境：Apple silicon、macOS 27.0、Xcode 27.0、Swift 6.4；工程部署目标为 macOS 14.0。
 
@@ -82,7 +88,7 @@
 | Release 构建 | 成功；`Build/release-build.log` 包含 `BUILD SUCCEEDED`。最终交付应用 `Build/SiftX.app`（1.0 build 3）；递归严格签名检查通过。 |
 | Safari 基础链路 | **实机通过**。在 `127.0.0.1:18765/mp4.html` 播放视频；主按钮显示角标并打开原生 240p/426×240/约 1.5 MB 选项，Media Probe 按钮也打开同一菜单。下载箭头显示“已加入下载队列”，主 App 接管并在“已完成”显示文件。系统 Downloads 的输出与源文件 SHA-256 一致，证据在 `Build/safari-download-verification.json`。 |
 | Safari 单按钮工具栏 | **实机通过**。通过 Safari“从工具栏移除”隐藏 Media Probe 图标后，工具栏仅保留 SiftX 主按钮；扩展设置中两个 SiftX 扩展仍勾选启用。新开本地 MP4 页面并播放，主按钮的原生菜单仍显示 1 个可下载选项（240p、426×240、约 1.5 MB）。 |
-| 公共网页空媒体反馈 | 在用户已打开的必应 YouTube 内嵌视频页，原生菜单能打开；仅观察到浏览器内存媒体，显示解释和禁用下载按钮，没有将其列为可下载来源。 |
+| 公共网页空媒体反馈 | 在用户已打开的搜索结果内嵌视频页，原生菜单能打开；仅观察到浏览器内存媒体，显示解释和禁用下载按钮，没有将其列为可下载来源。 |
 | 工具栏边界与交互 | 添加与批量操作属于整个窗口的导航工具栏，位于下载列表上方；在原有 980×650 窗口实机检查，与列表分栏边缘有可见留白。添加按钮打开链接 sheet，批量菜单显示三项操作；搜索 `mp4` 实际筛到一项，清空后恢复全部记录。 |
 
 测试资源由 `Scripts/make_fixtures.py` 在本地生成，通过 `Scripts/fixture_server.py` 的 `http://127.0.0.1:18765/` 提供。没有把公共网站、登录平台或付费服务列为已验证来源。
@@ -177,3 +183,20 @@ Release 构建与签名验证通过。使用当前 SwiftUI 视图的临时原生
 - `Build/VerifiedAES128/` 七种自动化输出均为 H.264 426×240 / AAC、12.032 秒；`ffprobe` 和完整音视频解码均无错误，证据为 `Build/aes-output-verification.json`、`Build/aes-decode-verification.json`。
 - 实际 Release 沙盒应用中，通过添加链接读取本机 AES-128 分离音轨示例，显示 240p 与仅音频两个可下载选项、0:12 时长及 AES-128；240p 下载完成，详情显示视频 + 音频、426×240 和 AES-128。完成文件另经完整解码验证。
 - 用户于 2026-10-06 确认可从原网站下载；没有将所有公共网站兼容性记为通过。此次新增跨扩展强制刷新/登记恢复有 JS 回归和编译验证，仍需后续 Safari 扩展重启交互验收。
+
+## 2026-10-06 下载管理与资料库启动验收
+
+- 主窗口边栏统一为“下载管理”，列表显示全部任务状态，搜索与各状态操作保留。
+- 构建后手动重签曾将 `Config/App.entitlements` 的团队占位符嵌入最终授权，启动 SQLite 报 `authorization denied`。改用本次 Release 构建生成的 `SiftX.app.xcent` 和原开发签名身份重签外层主 App；未修改或重建资料库。
+- 最终主 App 签名中的 App Group 与 Info.plist、展开授权文件一致，未残留占位符；主 App 和两个扩展的深度严格签名验证通过。
+- 实际启动正常显示“下载管理”与原有已完成记录，没有资料库启动错误。通过只读 NSWorkspace 查询确认运行路径为 `Build/SiftX.app`。
+
+## 2026-10-07 网页媒体解析回归
+
+- 网页内存地址不作为下载来源；持久请求保存规范页面地址、所选视频部分及格式身份，主 App 重新读取有效资源并进行本地整理，分片过滤规则保留。
+- Swift 核心 47/47，其中新增网页链接回归 5/5，覆盖来源与参数校验、会话隔离、音轨配对、格式身份持久化、旧字段兼容及受限媒体拒绝。其余 Swift targets 无失败；5 个原生预览集成测试因未提供测试站点地址按条件跳过。
+- Node 探针 35/35、Safari 配置 2/2、Xcode 下载集成 21/21 通过。下载集成包含新增用例 2/2 与原有网页链接用例 3/3；本地无声视频输入的最终文件包含视频与音频轨，另覆盖音频输出、暂停/继续、过期格式失败与后续队列继续。
+- Release 构建及独立严格递归签名检查通过，固定产物为 `Build/SiftX.app`。日志位于 `Build/bilibili-verification/`；`git diff --check` 与本地 Markdown 链接检查通过。
+- 实际下载代码的资源读取、本地音画整理和文件输出已验证，ffprobe 与完整 FFmpeg 解码检查通过；这项检查不替代应用内交互验收。
+- 继承沙盒的 Release helper 脱离应用独立启动时退出 134，尚未取得对应 crash report，不能将其等同于应用内调用失败。首次界面访问受 Mac 锁屏阻断；解锁后已完成 Safari 到 Release 应用的实际交互验收。
+- Safari 刷新目标页面后显示视频与仅音频下载入口；点击视频下载后，`Build/SiftX.app` 接管并完成任务，文件保存到用户下载目录。实际输出为 75.7 MB MP4，H.264 High 1920×1080、AAC LC，时长 11:04.56；应用详情显示 11:05，并通过“打开文件”载入 IINA。播放器辅助功能状态未提供播放时间，本轮未将载入文件等同于连续播放验收。脱敏记录见 `Build/bilibili-verification/safari-release-verification.json`。

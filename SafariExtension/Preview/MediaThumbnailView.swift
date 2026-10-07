@@ -50,7 +50,7 @@ final class MediaThumbnailLoader {
         defer { active -= 1 }
         var image: NSImage?
         if let url = posterURL(for: candidate) { image = try? await poster(url, headers: candidate.headers) }
-        if image == nil, candidate.transport != .youtube, !Task.isCancelled {
+        if image == nil, !candidate.transport.usesWebPlayer, !Task.isCancelled {
             image = try? await frame(candidate)
         }
         guard !Task.isCancelled else { return nil }

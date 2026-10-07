@@ -1,0 +1,25 @@
+Third-party source materials / 第三方源码材料
+
+SiftX runs FFmpeg, yt-dlp and QuickJS-NG as separate local programs.
+Their original licenses, notices and source archives remain under their
+respective upstream licenses. Licensing of SiftX's own source is a separate decision.
+
+The distribution ZIP contains SiftX-ThirdParty-Sources.zip beside SiftX.app.
+It includes pinned source archives, checksums, upstream build scripts,
+dependency locks and SiftX's integration/signing scripts. Extract its
+INDEX.md, ThirdParty/README.md and ThirdParty/BUILDING.md for details.
+
+If an application-only download is offered, the publisher must also offer
+the same source package beside that version's application download, at no
+additional charge. This notice does not substitute for actually supplying
+the matching source package.
+
+The application bundle includes ThirdParty-LICENSES.txt and the original
+FFmpeg-LICENSE.txt, yt-dlp-LICENSE.txt, YouTube-THIRD-PARTY-LICENSES.txt and
+QuickJS-LICENSE.txt. In Finder, choose Show Package Contents, then open
+Contents/Resources to read them.
+
+发布压缩包内，SiftX-ThirdParty-Sources.zip 与 SiftX.app 位于同一级目录。
+源码包包含原始源码、许可证、版本与校验值、上游构建文件和集成脚本。
+若提供单独的应用下载，请在同版本下载位置同时免费提供这份源码包。
+许可证也可在应用包 Contents/Resources 中查看。

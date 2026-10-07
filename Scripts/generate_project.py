@@ -68,7 +68,7 @@ for name, directory, bundle, plist, entitlements, product_type in [
             embeds.append(add('embed:'+extension,'PBXBuildFile',{'fileRef':ident('product:'+extension),'settings':'{ ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy); }'}))
         phases.append(add('embedphase','PBXCopyFilesBuildPhase',{'buildActionMask':'2147483647','dstPath':q(''),'dstSubfolderSpec':'13','files':arr(embeds),'name':q('Embed App Extensions'),'runOnlyForDeploymentPostprocessing':'0'}))
         phases.append(add('ffmpegsign','PBXShellScriptBuildPhase',{'buildActionMask':'2147483647','files':'()','inputPaths':arr([q('$(SRCROOT)/App/Resources/ffmpeg')]),'outputPaths':'()', 'alwaysOutOfDate':'1','shellPath':q('/bin/sh'),'shellScript':q('if [ "${CODE_SIGNING_ALLOWED}" = "YES" ]; then /usr/bin/codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" --entitlements "${SRCROOT}/Config/MediaTool.entitlements" "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ffmpeg"; fi\n'),'name':q('Sign local media processor')}))
-        phases.append(add('youtubetoolsign','PBXShellScriptBuildPhase',{'buildActionMask':'2147483647','files':'()','inputPaths':arr([q('$(SRCROOT)/Scripts/sign_youtube_tools.py')]),'outputPaths':'()', 'alwaysOutOfDate':'1','shellPath':q('/bin/sh'),'shellScript':q('python3 "${SRCROOT}/Scripts/sign_youtube_tools.py"\n'),'name':q('Sign YouTube tools')}))
+        phases.append(add('youtubetoolsign','PBXShellScriptBuildPhase',{'buildActionMask':'2147483647','files':'()','inputPaths':arr([q('$(SRCROOT)/Scripts/sign_youtube_tools.py')]),'outputPaths':'()', 'alwaysOutOfDate':'1','shellPath':q('/bin/sh'),'shellScript':q('python3 "${SRCROOT}/Scripts/sign_youtube_tools.py"\n'),'name':q('Sign media parser tools')}))
     configurations=[]
     for configuration in ['Debug','Release']:
         settings={'PRODUCT_NAME':q(product_name.rsplit('.',1)[0]),'PRODUCT_BUNDLE_IDENTIFIER':q(bundle),'SWIFT_VERSION':'6.0','ARCHS':'arm64','ONLY_ACTIVE_ARCH':'YES','MACOSX_DEPLOYMENT_TARGET':'14.0','CODE_SIGN_STYLE':'Automatic','DEVELOPMENT_TEAM':'P57SZ9Z7G2','CODE_SIGN_IDENTITY':q('Apple Development'),'COMBINE_HIDPI_IMAGES':'YES','SWIFT_EMIT_LOC_STRINGS':'YES','SWIFT_ACTIVE_COMPILATION_CONDITIONS':q('DEBUG' if configuration=='Debug' else ''),'ENABLE_USER_SCRIPT_SANDBOXING':'NO','GENERATE_INFOPLIST_FILE':'NO' if plist else 'YES','LD_RUNPATH_SEARCH_PATHS':q('$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks'),'SWIFT_OPTIMIZATION_LEVEL':q('-Onone' if configuration=='Debug' else '-O'),'ENABLE_TESTABILITY':'YES' if configuration=='Debug' else 'NO'}
@@ -79,6 +79,8 @@ for name, directory, bundle, plist, entitlements, product_type in [
         settings['SWIFT_INCLUDE_PATHS']=q('$(inherited) $(BUILD_DIR)/$(CONFIGURATION)')
         settings['LIBRARY_SEARCH_PATHS']=q('$(inherited) $(BUILD_DIR)/$(CONFIGURATION)')
         if name=='SiftX':
+            # Preserve audited third-party executable bytes during resource copying.
+            settings['COPY_PHASE_STRIP']='NO'
             settings['SWIFT_OBJC_BRIDGING_HEADER']=q('Config/SiftX-Bridging-Header.h')
             settings['ASSETCATALOG_COMPILER_APPICON_NAME']=q('AppIcon')
         if entitlements: settings['CODE_SIGN_ENTITLEMENTS']=q(entitlements)

@@ -100,6 +100,22 @@ struct SettingsView: View {
                 Section("隐私") { Text("SiftX 在本机处理媒体信息，无服务器、分析或追踪服务。").foregroundStyle(.secondary) }
             }.formStyle(.grouped)
                 .tabItem { Label("Safari", systemImage: "safari") }
+            Form {
+                Section("SiftX") {
+                    Text("适用于 macOS 的下载工具。")
+                }
+                Section("免责声明") {
+                    Text("该工具仅供学习使用，下载的素材请在24小时内删除，任何个人行为与软件开发者无关。")
+                        .fixedSize(horizontal: false, vertical: true)
+                        .textSelection(.enabled)
+                }
+                Section("使用提示") {
+                    Text("请仅下载您拥有版权或已获得授权的素材，并遵守相关法律法规及来源网站的使用条款。")
+                        .fixedSize(horizontal: false, vertical: true)
+                        .textSelection(.enabled)
+                }
+            }.formStyle(.grouped)
+                .tabItem { Label("关于", systemImage: "info.circle") }
         }.frame(width: 570, height: 430)
         .onChange(of: model.settings) { _, _ in model.saveSettings() }
         .onAppear { model.refreshExtensionStates() }

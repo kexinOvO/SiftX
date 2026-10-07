@@ -1,6 +1,10 @@
 # 架构
 
-Last reviewed: 2026-10-06
+Last reviewed: 2026-10-07
+
+## 发布材料
+
+`ThirdParty/sources.lock.json` 固定第三方源码版本、来源与SHA-256，`runtime-files.json` 固定构建前资源文件及框架链接。`prepare_third_party.py` 校验两套输入，生成应用内完整许可证与离线源码ZIP；`build_release.sh` 先准备材料，再构建和验签，最后由 `package_distribution.py` 比较应用内实际工具并将应用与源码一起分发。原生文件在临时副本移除旧签名并统一应用确定性的ad-hoc签名，再逐字节比较；这会规范化签名改变的LINKEDIT元数据。非原生文件与符号链接须完全匹配。主App资源复制禁用strip。维护和来源依据见 `ThirdParty/README.md` 与 `PROVENANCE.md`。
 
 ## 组件边界
 
@@ -21,11 +25,11 @@ Last reviewed: 2026-10-06
 
 `PopoverModel.previewCandidate` 管理列表与预览切换，关闭 popover 或页面 UUID 变化时清除。`MediaPreviewPlayback` 在用户点击后创建 AVPlayer，观察就绪、失败、画面尺寸和音轨；返回时取消准备与超时任务、清除播放器和网络代理。音轨判断同时读取 audio tracks 和 audible media selection group，兼容 HLS 独立音轨。
 
-`MediaThumbnailLoader` 优先读取网页封面或 YouTube 封面，其次以静音 AVPlayer 提取视频帧；图片缩采样并只在内存缓存，限制两个并发任务、图片响应大小和提帧时间。音频仍显示原波形图标。
+`MediaThumbnailLoader` 优先读取网页提供的封面，其次以静音 AVPlayer 提取视频帧；图片缩采样并只在内存缓存，限制两个并发任务、图片响应大小和提帧时间。音频仍显示原波形图标。
 
 `MediaPreviewProxy` 是预览专用 actor，通过 Network.framework 在 127.0.0.1 的临时端口提供带随机作用域的注册资源，只允许 GET/HEAD；URLSession 不保存 Cookie、响应缓存、媒体或密钥。它保留允许的 Referer、Range 与响应范围，重写 HLS 分片、初始化段、音轨和密钥 URL，按 EXT-X-KEY 声明为相同密钥 URL 分配独立路径。HLS master 只包含当前所选视频与对应音轨。DASH 解析器另行保留初始化段及真实分片时长，代理将支持的 fMP4 表示转换为 HLS；既有下载分片序列保持兼容。原生扩展的 network.server entitlement 用于这个仅绑定回环地址的监听器。
 
-YouTube 使用非持久 WKWebView 网页播放器，包含超时、重试和原网页入口，关闭时停止并清空网页。原生预览的画质对应所选候选；YouTube 网页播放器自行选择画质。预览不创建 DownloadRequest，只有显式下载动作沿用原有持久队列。
+部分网页媒体使用非持久 WKWebView 网页播放器，包含超时、重试和原网页入口，关闭时停止并清空网页。原生预览的画质对应所选候选；网页播放器自行选择画质。预览不创建 DownloadRequest，只有显式下载动作沿用原有持久队列。
 
 ## 共享存储
 
@@ -43,6 +47,7 @@ App Group 为 `$(DEVELOPMENT_TEAM).com.siftx.shared`，由各 target 的 `SiftXA
 
 ## 下载与文件
 
+- 主窗口以两栏 `NavigationSplitView` 保留边栏：“下载管理”分组包含全部下载、正在下载、已完成、失败；“媒体类型”分组包含视频、音频、其他。`LibrarySection.includes` 在搜索之前筛选持久记录；正在下载使用 `.downloading/.processing`，与 `DownloadManager.activeCount` 的动态角标一致。媒体类型读取 `candidate.kind`，其他为视频/音频之外的兜底。主内容区的 `NavigationStack` 使用下载 UUID 路径从列表进入详情；详情始终按 UUID 读取当前记录，接收实时状态和进度。返回列表或点击任一边栏筛选项清空路径；当前详情记录被删除或批量清除时自动回列表。实现：`App/Views/MainView.swift`。
 - MainActor 管理可观察队列与记录；DownloadEngine actor 执行业务，URLSession 串行 delegate 将数据直接写盘。
 - 直接媒体使用 ETag/Last-Modified 与 If-Range 恢复；200 响应重置部分文件，错误 206 范围重启。无可验证身份的部分文件重新下载。
 - 普通 AES-128 HLS 每个分片携带密钥 URL、作用域 ID 与 16 字节 IV；主 App 的 HLSKeyLoader 按作用域合并并发请求，密钥只在任务内存保留，严格检查 16 字节响应及重定向。HLSAES128 使用 CommonCrypto CBC 流式解密并完整验证 PKCS#7，成功后才提交分片；视频、音频和初始化段统一走此流程。
@@ -56,7 +61,9 @@ App Group 为 `$(DEVELOPMENT_TEAM).com.siftx.shared`，由各 target 的 `SiftXA
 
 ## 运行与安全
 
-YouTube 是独立的 `MediaTransport.youtube`。Native probe 根据严格校验并规范化的单视频 URL 直接生成视频/音频入口，不在扩展中运行大型解析器。`YouTubeFormatSelection` 只保存格式 ID 与可选音轨 ID；队列保存规范化 watch URL，下载时重新解析。主应用的 `YouTubeDownloader` 调用随包的 yt-dlp/QuickJS 读取 JSON、选择兼容的 H.264/AAC 格式并逐轨下载，FFmpeg 继续只处理本地文件。输出、诊断、超时与取消由 `YouTubeToolProcess` 控制；下载完成后沿用原有 bookmark、独占提交和历史。工具不使用 shell，不读取用户配置/插件或浏览器登录信息。发布的 onedir runtime 以文件夹资源保留 `_internal` 布局，构建时恢复 Python framework 链接、签名库与 sandbox-inheritance 可执行文件。
+网页媒体使用独立的 `MediaTransport` 路线。Native probe 根据严格校验并规范化的单视频页面生成视频/音频入口，不在扩展中运行大型解析器。格式选择只保存媒体与可选音轨 ID；持久队列保存规范页面地址和所选视频部分，下载或恢复时重新解析。主应用的 `SiteMediaDownloader` 调用随包的 yt-dlp/QuickJS 校验来源、选择兼容的 H.264/AAC 格式并逐轨下载，FFmpeg 继续只处理本地文件。子进程统一约束输出、诊断、超时与取消；下载完成后沿用原有 bookmark、独占提交和历史。工具不使用 shell，不读取用户配置/插件或浏览器登录信息。发布的 onedir runtime 保留 `_internal` 文件夹布局，构建时恢复 Python framework 链接并签名原生库与继承沙盒的可执行文件。
+
+站点 URL 解析严格限定来源域名和支持的视频页路径，移除追踪参数并保留所选视频部分；格式身份通过可选字段持久化，兼容旧历史。普通 `.m4s` 网络观察仍按分片过滤。部分网页视频使用非持久网页播放器，音频试听打开原网页；预览入口不生成下载请求。
 
 主 App、两个扩展都有 App Group 和相应 sandbox entitlements；FFmpeg 子进程继承 App sandbox。Safari 状态 API 的 ObjC 回调桥 `App/SafariStateBridge.m` 在调用 Swift 前切回主线程，适配本机 SDK 的后台 XPC 回调行为。
 

@@ -1,0 +1,562 @@
+{
+  "schema": 1,
+  "description": "Pre-Xcode resource files. Xcode signs copies in the built app. Refresh this inventory only after auditing replacement tools and matching source inputs.",
+  "files": [
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_ARC4.abi3.so",
+      "sha256": "b886a04e8efa23f33b976e09a3d5711c53a77107ee7275012b5afa92a504993e"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_Salsa20.abi3.so",
+      "sha256": "7bc31d60f6be4f9afe14ef562d6c6393ddfb12a0571cb657523b0b5f450a67a5"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_chacha20.abi3.so",
+      "sha256": "56fac75915f9605fdf59e9ffa3d215af606040f32fdfdfb56515c9877aa225ed"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_pkcs1_decode.abi3.so",
+      "sha256": "47ee4865de0ad8ec82ff5456cdf5b17581d775c7c27693bc6e47babbe030f36e"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_aes.abi3.so",
+      "sha256": "7fcec69dc9631a933e08cdc346a5fda4154fbe3bdf4891314926a36107ff3051"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_arc2.abi3.so",
+      "sha256": "ad382e1c47351c94f8481354203b695f3447eef7c974c1e63745658577ccee66"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_blowfish.abi3.so",
+      "sha256": "88507ea77fc9a8316844399981c509133d1db6df71c1d799a08c43e055fefd42"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_cast.abi3.so",
+      "sha256": "2df3b2e9e8680c26148743ee3d78c12493890f546acbfd0db7cf6bfd21c4f95d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_cbc.abi3.so",
+      "sha256": "4b2401b5797dd9720ce0bbad2839b89bf84a74c5bf042828b4aa0b9c6c907449"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_cfb.abi3.so",
+      "sha256": "7938f38fd42373123c558360f0d94e29e62cc4ead9a482041c746de693be2173"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_ctr.abi3.so",
+      "sha256": "3b8bc5ca941cdd98902a85b4fc9a97c1378a89933b14116109cfca61f1999d29"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_des.abi3.so",
+      "sha256": "4b1c053fb0d1a9cd772c9d29b50510ec8eb8972fccaf92bb49944b033ab3f7ee"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_des3.abi3.so",
+      "sha256": "e7cfcf5d1577ad0a0f4f74a9ac8c77e6eb97118356f9ebcc23eef0312ce2004c"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_ecb.abi3.so",
+      "sha256": "b0cd21008cc47356c1d9de7cb844ee4ebd1ffbed5b99b91aac6d1e708be658fc"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_eksblowfish.abi3.so",
+      "sha256": "a07943745baa4e94512601d3047e1de39fa3fcca47c3e4f272168903732b1b0b"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_ocb.abi3.so",
+      "sha256": "21d7232b2c11cf5ed9e9c07d3eccc0c566909777f7570fa3eb4e07d003cd32b6"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Cipher/_raw_ofb.abi3.so",
+      "sha256": "b43440236dcf39fb3b989d47d81cf62b5dd3c76528f4c956631a16d5542345b6"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_BLAKE2b.abi3.so",
+      "sha256": "afe031c6a60714075d93b5d5ad88df66cf8d9b11c22fa8e7eebd55d1d4aa6371"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_BLAKE2s.abi3.so",
+      "sha256": "a3f8ddfc130eb6fa6be6acb04ed0be763e7717d3bcf9f62a8c9c19a544eea2fd"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_MD2.abi3.so",
+      "sha256": "6e11429abe0072e0472db9b50f544258123731e35a464ce5d5240728d688f3b5"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_MD4.abi3.so",
+      "sha256": "94cde77d19e1c227d995b7cb40e75b77371d6d6ada2f562b4bda55d86859f715"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_MD5.abi3.so",
+      "sha256": "785df2ab44030e50f44c425c96f0c513763b8726de97058b948b60e25381e9bc"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_RIPEMD160.abi3.so",
+      "sha256": "76e00e1368b45592fd85163672967b7a13172694953cbe65413bd49ae275ffde"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_SHA1.abi3.so",
+      "sha256": "41447cd30ba44b00521c68856785d3e2d21965e6f4b7b4523fda4d50a263f485"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_SHA224.abi3.so",
+      "sha256": "2590cc4f91990164d63b58c17bfb4cd204736afb1aeb67cdedd1fa63f250c64d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_SHA256.abi3.so",
+      "sha256": "c3d4ce26228ebcf74b367ff69b67b2163a9b1ee9ad35efbd0fd5b195969dfb55"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_SHA384.abi3.so",
+      "sha256": "5690deec6873e7087aae711ad49f552373f38d94b264733ca4ffa118f6e560ee"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_SHA512.abi3.so",
+      "sha256": "cccc151a19b2a890ba2af01ab31d15dd4b4d0ce322b82d783ee1e86266b99e13"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_ghash_portable.abi3.so",
+      "sha256": "0dda0a1f01e03e929dd1ddc9cecda093e07975a7dc3c548069bcd6dc999c408e"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_keccak.abi3.so",
+      "sha256": "cc04fc14970078c5164801f4f5ab1fa0c451f5be3e4fb14222932a5b0e29365c"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Hash/_poly1305.abi3.so",
+      "sha256": "470b1da7446030ba7f84fe086c2152ff1492030d8258c996ec4e9d2799a9da98"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Math/_modexp.abi3.so",
+      "sha256": "28b1ed22165b408d861889e2bb33bc2a5c2d267b6fad8abe3a9743415ac7c821"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Protocol/_scrypt.abi3.so",
+      "sha256": "e97166019b52ee0cc48d664c05631b2fcc75e9926cae0c1a764949b6ce343b25"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/PublicKey/_curve25519.abi3.so",
+      "sha256": "5bbecafed9014fc1be1d96855d70e7fd811b62759598929a213a47efad0d6e17"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/PublicKey/_curve448.abi3.so",
+      "sha256": "ffd904392259c67837c36dea22804f4080dea0de91aa918855184fedb4bafe37"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/PublicKey/_ec_ws.abi3.so",
+      "sha256": "939f728f9f7b41b4fdca32298c291b5aa54bb5425f7698a9934035d35fadaaf3"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/PublicKey/_ed25519.abi3.so",
+      "sha256": "42d67861c3b633eda95e83c5e201f5781db0dfada22ab40e6d6de97460d056b2"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/PublicKey/_ed448.abi3.so",
+      "sha256": "1defedb758393ddd81529f0847841201cec7bba6990990aff9420b78dbbaafaf"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Util/_cpuid_c.abi3.so",
+      "sha256": "faf2122c5a4bf76700b836ad68ad0f43709b353297be982e1b1cd9ef1b6793c4"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Cryptodome/Util/_strxor.abi3.so",
+      "sha256": "e97eb43880c153e2b18c8f18eca2d7919a61ad8df66365f7b623fe89d069893a"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Python",
+      "symlink": "Python.framework/Python"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Python.framework/Python",
+      "symlink": "Versions/Current/Python"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Python.framework/Resources",
+      "symlink": "Versions/Current/Resources"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Python.framework/Versions/3.14/Python",
+      "sha256": "67d7647918d322172351b6c144af2e4f45e273d1c465cd19b865f262c2efda3e"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Python.framework/Versions/3.14/Resources/Info.plist",
+      "sha256": "d9e13a85d0826fcf243e476c02ff2a2871d84642c9f98648c3e9c79b33610676"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/Python.framework/Versions/Current",
+      "symlink": "3.14"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/THIRD_PARTY_LICENSES.txt",
+      "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/_brotli.cpython-314-darwin.so",
+      "sha256": "6224f590a3f4d6c4883ebd709d4b0496a03d3b54c7be503cc40d5d6988416007"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/_cffi_backend.cpython-314-darwin.so",
+      "sha256": "3b2b7d5389e23a98e0309c545903d8ea41da15cf50555990d26cadaa3cb9bab3"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/base_library.zip",
+      "sha256": "f197c07f5933e13e4d429a7dc871d3060c1c52abfd8f1da7e1191041f1389bb4"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/certifi/cacert.pem",
+      "sha256": "9cc2a774b5198dcff14d9be1e66091f538975d867ce029a96bce15a55dfd730f"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/certifi/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/charset_normalizer/cd.cpython-314-darwin.so",
+      "sha256": "18a79a3624079f2e30edf289860f0cf62e3ba96440b85e0d9fcc3dd26ce4c6b5"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/charset_normalizer/md.cpython-314-darwin.so",
+      "sha256": "dd656152011b277237b9b7f35d386df0654c16baae98730a56fbe0a4c29bf6d6"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi/_wrapper.abi3.so",
+      "sha256": "75295e8cc92af76ff29dea21ca6b196ac4da7e3a548ab537d3844f9ad3d26022"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/METADATA",
+      "sha256": "db12afd9a465f87b4e73028a72e72b650f85e755c5a3b56945742d60b27417e7"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/RECORD",
+      "sha256": "7e1176b8dc90413537ba44a46a79a454ef5dcc71b3342f0fe74c91121ae24814"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/WHEEL",
+      "sha256": "98b6d96025817387c9cd6d72d8ad8f13bedefa664bc052385bad6d11526c6bf7"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/direct_url.json",
+      "sha256": "7e856c50cf818fe63e63170d8c5f769fe6980771b233756c6dfe6b4c5be5f388"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/entry_points.txt",
+      "sha256": "1f34f0a14a5b88a228e6e26baa7c4f93939dc59d0f853d1d3d34aa50ff09b3bd"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+      "sha256": "3e88b029b50b6afd36d6b18642ce4c8b6eee4c903f1cfabef5b811f61e07050b"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/curl_cffi-0.16.0.dist-info/top_level.txt",
+      "sha256": "6f9d58079d08fefbba5c06d21119aab606987226000c203f6da56867f4f92f3b"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/libcrypto.3.dylib",
+      "sha256": "fa03a501abff129ee378390cadc3674159f2fb764c34805d6b9b5d6a59e8f9ee"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/libssl.3.dylib",
+      "sha256": "8e700197f324ef3ad1af6129d1549d186dfb29aabd6198d245cb2456e71c4914"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/libzstd.1.dylib",
+      "sha256": "739787f8f33d04db3cafef92a006db8be765bd324967eeb48295365fe79d2413"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_asyncio.cpython-314-darwin.so",
+      "sha256": "572209d101342f410380b656589783260f30825777152685743644a96da8a1a8"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_bisect.cpython-314-darwin.so",
+      "sha256": "8c9602840ea070da4335a17cfa3ea86e743047c574490d7e9083eb44840d8892"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_blake2.cpython-314-darwin.so",
+      "sha256": "4510cd641274d12104fc58ff392c9382b83627ba81a8bcc0ba58c59eaf62cfe3"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_bz2.cpython-314-darwin.so",
+      "sha256": "bc60cf951fff0c40e597ad6192c5400b5ad57c46dcbbb7f5e2bf04c880e12ae9"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_codecs_cn.cpython-314-darwin.so",
+      "sha256": "e60240935e17f0050a620750ba2c5f9ca3fd83e3ed3176eae96477d631a73b0b"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_codecs_hk.cpython-314-darwin.so",
+      "sha256": "ffd2267aad6849e5e3c622de0b1c59bfd63256ebac88d41665aa531eafaf1c73"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_codecs_iso2022.cpython-314-darwin.so",
+      "sha256": "3dc0c0b2c50d0763fd9aaa955afc9a2312497fab5539772fa56d1448da562b6a"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_codecs_jp.cpython-314-darwin.so",
+      "sha256": "0da551ba64b43bb339609e68714cf63e80289cad61e26c8a1d0816feb412e945"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_codecs_kr.cpython-314-darwin.so",
+      "sha256": "80ebc49ee46b8ef5ceb98600759ccd71b1a536608406f779720a473286e88246"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_codecs_tw.cpython-314-darwin.so",
+      "sha256": "e196f13948e23e1855c26403c89f0f553aee7e3eefe60b5e244e659de2af1463"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_csv.cpython-314-darwin.so",
+      "sha256": "8263a5979f8993f13c15a9992360dbea889d70c2cc8fba1b93721af3b75cabff"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_ctypes.cpython-314-darwin.so",
+      "sha256": "025027609072273d3f4007552ed528c67f2ea86f97417f47676379dd89f8168d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_decimal.cpython-314-darwin.so",
+      "sha256": "79737aeea36c300a54b67e4dfdaaf4a37c4b0af08545cdf9b6b51f8b731ecc22"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_elementtree.cpython-314-darwin.so",
+      "sha256": "180db02049d8452dae0e103ba56e5de14981b1268c601aed69bac1352fdf2034"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_hashlib.cpython-314-darwin.so",
+      "sha256": "4ff5724ba6766cc7cfd8652b56dacdf34c97926171212742dd8e8e6553196ea7"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_heapq.cpython-314-darwin.so",
+      "sha256": "f9e92f5b3431cbd1aa9042483d0bf6fe61b318dbbb1da10fd66cf7681a8fb3f5"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_hmac.cpython-314-darwin.so",
+      "sha256": "74e83d2ba70f329e26b0943596bdb3c6ca46b4d02416f1440732302db74b0ed2"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_interpqueues.cpython-314-darwin.so",
+      "sha256": "4e8d4d50f4d1bd337c866a1fc11755f4afdb832ad9a14aab6126f6e2e5cc8692"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_interpreters.cpython-314-darwin.so",
+      "sha256": "bd5b265f47fce0ed8047530748dcb2d92d2817420d602224149bb11d17069c92"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_json.cpython-314-darwin.so",
+      "sha256": "27ba1f50c1fa54f351ee0355788cff9fb029f3cac497fb2965d5a721f77e71b3"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_lzma.cpython-314-darwin.so",
+      "sha256": "14ff8ca8009a2f858c2fb505be195cbc1090eee8234200258f094139d34fdf38"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_md5.cpython-314-darwin.so",
+      "sha256": "3da8434a93bf85cbf48096207e9b5b2635e89209ba2e6a0d11bbeca9b0cb525b"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_multibytecodec.cpython-314-darwin.so",
+      "sha256": "84ae5af9258150bbc244dbc12c7f4a915acb8bd1beef1d46412fe15b6cc4aa30"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_multiprocessing.cpython-314-darwin.so",
+      "sha256": "5bb51258739c4db3b32e3b39f43ab71d97b1f2bc7734e3733f494e0cbf0c2af5"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_pickle.cpython-314-darwin.so",
+      "sha256": "5a6d43d4383e2ecb84e8ad6157b48a8f53be544ce15df432e423d6e37c14165f"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_posixshmem.cpython-314-darwin.so",
+      "sha256": "bfe4fbc8e3880de267b5ac41c09aeb798daf3c5a8ed76a93156ed7570211da61"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_posixsubprocess.cpython-314-darwin.so",
+      "sha256": "51ed25933f48ab71b5c20567a4c125e18b39744f6d049ee6e1b0ff66993b5993"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_queue.cpython-314-darwin.so",
+      "sha256": "fa27c6ad42e54973fdeb88c6ea7eaddcc9e25a02215c6850bc0bcb3ee1d492d1"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_random.cpython-314-darwin.so",
+      "sha256": "d755ae690f758fb7bac722ec3932be86d6b7910b8980348419f7b4c7c845b285"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_scproxy.cpython-314-darwin.so",
+      "sha256": "43964320ede57a41200a34bf3be043fd92a959981deb173d0ade3de0435608da"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_sha1.cpython-314-darwin.so",
+      "sha256": "60f885c981b9196d9e03e2317e0c61f34423b5d68d8fe55ff37b5dfeacaa0d4d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_sha2.cpython-314-darwin.so",
+      "sha256": "9ee291a4e80228d0af4edd619f6d44511aa41e1028b8e1a49cd429da034e4908"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_sha3.cpython-314-darwin.so",
+      "sha256": "88328a7575bbfae10f1fbad90282c380c4e0b325c5261bfc6f698cff0c235fc0"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_socket.cpython-314-darwin.so",
+      "sha256": "dbc6f5e887f0a62a1ab2a0eae0face5ae012e9aaf64780520dce1da64bfce3ad"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_sqlite3.cpython-314-darwin.so",
+      "sha256": "07d4396eadf59aa0dd3ba26303218147bd7a131aeabfaffc0352bd86affc4068"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_ssl.cpython-314-darwin.so",
+      "sha256": "82b2a9be33184aa10def182b1c693a6b9bbe36ece995076c65ff6bfe57420438"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_statistics.cpython-314-darwin.so",
+      "sha256": "353fd534b7c4e85be1202a18b54fdd8971d9cc5b2530988231cf901aafcdf212"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_struct.cpython-314-darwin.so",
+      "sha256": "632241cfa91aeb005f36415e39d8bff25afbfd18689cab9139484e8047f92f03"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_uuid.cpython-314-darwin.so",
+      "sha256": "8d962b321d80554ca2c1b7948966ee8f52883a4f00543b81e581caf983278e56"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/_zstd.cpython-314-darwin.so",
+      "sha256": "a393fbbe0d25bc55defbef8e9c09d8d8ad2ea1a89c161785d9aaf07e74aebdd8"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/array.cpython-314-darwin.so",
+      "sha256": "7e91ef7d0d2c2ace75a9adcc78dfce159b5661b2e5381f29f53caa30e37bb2fa"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/binascii.cpython-314-darwin.so",
+      "sha256": "1675ff5c2f14de686d4787c774d6dcbf709c28c07d8a55c4bc0b35237d98f96a"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/fcntl.cpython-314-darwin.so",
+      "sha256": "b2a3da4a581e7490e021dc709af9eeaf965ec46d1cefd5a8cbcf9482cab6c508"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/grp.cpython-314-darwin.so",
+      "sha256": "c0d5a9ccdf92ed1c3d942366a6423b1ff8bacb607f4696b10dbf077e34ecff45"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/math.cpython-314-darwin.so",
+      "sha256": "331356b698dc72bf05d7bea094c478fbe41c6b2c8351080d139bdd3832430076"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/mmap.cpython-314-darwin.so",
+      "sha256": "0e971dcfa41be6a7c14f69a3ea9e31748304165d2948ccd119ae1e151be92e8d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/pyexpat.cpython-314-darwin.so",
+      "sha256": "eccce6d04b3ded43566a513f871b4c73efc7146e037962a1ade206fd112ba15d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/readline.cpython-314-darwin.so",
+      "sha256": "1ecf82c36d6a6ddca91c81292f2899456a07cd76fc35eb43fd409a55ff94ce27"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/resource.cpython-314-darwin.so",
+      "sha256": "7b93b119b6593f4251bd89dce398298513bd245e8bda5a3fd4bda8cab94bd344"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/select.cpython-314-darwin.so",
+      "sha256": "34e90569219beb6b163578c6c2d62689a4dfda0968f43229448178994f9b4dd6"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/termios.cpython-314-darwin.so",
+      "sha256": "2777aba876e25fc49b7d55f15cacc2a24b10e66b88226cfdcf162dff06f3122f"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/unicodedata.cpython-314-darwin.so",
+      "sha256": "44a4340cc002d852f385199a3b4126b710a00e4ad609d9668fd244216a1bfb48"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/python3.14/lib-dynload/zlib.cpython-314-darwin.so",
+      "sha256": "5113ca013ab71423c1a2b9d03352891cd11aec3904aee5797655520919f573fd"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets/speedups.cpython-314-darwin.so",
+      "sha256": "1cfddfd50e9bfd2ebef2696006e9a4e35d3b877570205d010f38100d21cb529d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/METADATA",
+      "sha256": "67f6eda687dfcf4b9b8875668a6d2b62314cc4d74e9ff2e1695bac2bc0990880"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/RECORD",
+      "sha256": "c2d99c928828f9bebe05db3052663182179b3a8eacdbd7e0f7d614301da75a2d"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/WHEEL",
+      "sha256": "7600525da2d7ddd0c1f835691d3d7a06c68af218f467030e2e32418d684d2bfe"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/direct_url.json",
+      "sha256": "b4a45ae14fd1e14e565f818c41addd27b50f7068e5e6cb4828e60a68df85d29c"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/entry_points.txt",
+      "sha256": "0e7867e1d9b912c23864c02c1e574617a0b005766b1979d1edc9cadbe5d1ef36"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/licenses/LICENSE",
+      "sha256": "3d6a0c050d8bec52fabad502e45fb25bd02bcadbd70dea34d447b6a0ff4e6da8"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/websockets-17.0.1.dist-info/top_level.txt",
+      "sha256": "08ca5d2a49712acbd980283296dc5458e1e26d95d9d6e60856971af71b10f079"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/yt_dlp_ejs/yt/solver/core.min.js",
+      "sha256": "18da6ce0758b416e7ae645084f4f8801f9f9d59d6c477c05eaa0ff94ebd8cc00"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/_internal/yt_dlp_ejs/yt/solver/lib.min.js",
+      "sha256": "c55987fe697e5b9ee18830163f7af85327e9bb5c3e674b969d38c8d205eaa577"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/qjs",
+      "sha256": "8be3ddfe3397d2e692e4e1e8972ee9d032a0a580505d2f8b4ea528cf1b651c11"
+    },
+    {
+      "path": "App/Resources/YouTubeTools/yt-dlp",
+      "sha256": "0b62cd27782cff39ab1ea27b0d785cb1b09c872bcbef993ae7d77de0061f8eb3"
+    },
+    {
+      "path": "App/Resources/ffmpeg",
+      "sha256": "5bb4e49bbb32015f5a778de782f0afc39e7507d47dba4766b0611a6b0214c277"
+    },
+    {
+      "path": "App/Resources/FFmpeg-LICENSE.txt",
+      "sha256": "b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe"
+    },
+    {
+      "path": "App/Resources/YouTube-THIRD-PARTY-LICENSES.txt",
+      "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7"
+    },
+    {
+      "path": "App/Resources/yt-dlp-LICENSE.txt",
+      "sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c"
+    },
+    {
+      "path": "App/Resources/QuickJS-LICENSE.txt",
+      "sha256": "96f73f9d2a16c21a36b418f06073be26e7d6d5e7c1bc99756b21a4f2c74ef171"
+    }
+  ]
+}

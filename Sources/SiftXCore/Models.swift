@@ -11,7 +11,10 @@ public enum SiftXConfiguration {
 }
 
 public enum MediaKind: String, Codable, Sendable { case video, audio }
-public enum MediaTransport: String, Codable, Sendable { case direct, hls, dash, youtube }
+public enum MediaTransport: String, Codable, Sendable {
+    case direct, hls, dash, youtube, bilibili
+    public var usesWebPlayer: Bool { self == .youtube || self == .bilibili }
+}
 public enum MediaEncryption: String, Codable, Sendable { case aes128 = "AES-128" }
 
 /// Describes standard HLS AES-128 encryption; never contains the key bytes.
@@ -69,8 +72,9 @@ public struct MediaCandidate: Codable, Hashable, Identifiable, Sendable {
     public var thumbnailURL: URL?
     public var plan: MediaPlan?
     public var youtubeFormat: YouTubeFormatSelection?
+    public var bilibiliFormat: SiteFormatSelection?
 
-    public init(id: String = UUID().uuidString, sessionID: String = "", title: String = "", pageTitle: String = "", pageURL: URL, sourceURL: URL, kind: MediaKind = .video, transport: MediaTransport = .direct, quality: String? = nil, width: Int? = nil, height: Int? = nil, bitrate: Int? = nil, estimatedBytes: Int64? = nil, duration: Double? = nil, encryption: MediaEncryption? = nil, hasAudio: Bool = true, protection: String? = nil, audioURL: URL? = nil, headers: [String: String] = [:], thumbnailURL: URL? = nil, plan: MediaPlan? = nil, youtubeFormat: YouTubeFormatSelection? = nil) {
+    public init(id: String = UUID().uuidString, sessionID: String = "", title: String = "", pageTitle: String = "", pageURL: URL, sourceURL: URL, kind: MediaKind = .video, transport: MediaTransport = .direct, quality: String? = nil, width: Int? = nil, height: Int? = nil, bitrate: Int? = nil, estimatedBytes: Int64? = nil, duration: Double? = nil, encryption: MediaEncryption? = nil, hasAudio: Bool = true, protection: String? = nil, audioURL: URL? = nil, headers: [String: String] = [:], thumbnailURL: URL? = nil, plan: MediaPlan? = nil, youtubeFormat: YouTubeFormatSelection? = nil, bilibiliFormat: SiteFormatSelection? = nil) {
         self.id = id; self.sessionID = sessionID; self.title = title; self.pageTitle = pageTitle
         self.pageURL = pageURL; self.sourceURL = sourceURL; self.kind = kind; self.transport = transport
         self.quality = quality; self.width = width; self.height = height; self.bitrate = bitrate
@@ -78,6 +82,7 @@ public struct MediaCandidate: Codable, Hashable, Identifiable, Sendable {
         self.duration = duration; self.encryption = encryption
         self.audioURL = audioURL; self.headers = headers; self.thumbnailURL = thumbnailURL; self.plan = plan
         self.youtubeFormat = youtubeFormat
+        self.bilibiliFormat = bilibiliFormat
     }
     public var displayTitle: String {
         if !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return title }
@@ -88,7 +93,8 @@ public struct MediaCandidate: Codable, Hashable, Identifiable, Sendable {
         switch transport {
         case .hls: return "HLS"
         case .dash: return "DASH"
-        case .youtube: return "YouTube"
+        case .youtube: return "网页媒体"
+        case .bilibili: return "网页媒体"
         case .direct: return sourceURL.pathExtension.uppercased().isEmpty ? "媒体" : sourceURL.pathExtension.uppercased()
         }
     }

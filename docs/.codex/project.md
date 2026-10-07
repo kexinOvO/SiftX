@@ -1,8 +1,10 @@
 # 项目
 
-Last reviewed: 2026-10-06
+Last reviewed: 2026-10-07
 
-SiftX 是面向 Safari 的原生媒体发现与下载工具。Safari 展示整理后的质量选项并提供下载前预览，主 App 独立下载、合并和保存历史。全部媒体信息本地处理，没有远程服务端或追踪 SDK。
+SiftX 是适用于 macOS 的下载工具。Safari 展示整理后的质量选项并提供下载前预览，主 App 独立下载、合并和保存历史。全部媒体信息本地处理，没有远程服务端或追踪 SDK。
+
+直接媒体与播放列表使用原生 HTTP/HLS/DASH 链路；部分网页链接由主 App 调用随包的媒体解析组件获取并合并音画，Safari 提供页面入口。所选视频部分与可选格式身份均参与持久下载请求。
 
 ## 栈与入口
 
@@ -33,6 +35,8 @@ SiftX 是面向 Safari 的原生媒体发现与下载工具。Safari 展示整�
 
 固定路径的 Release 交付构建：`sh Scripts/build_release.sh` → `Build/SiftX.app`。验收时避免同时保留多个相同 Bundle ID 的已登记 App；旧 Debug/Release 生成副本已归档为 ZIP。
 
+Release 同时生成 `Build/Distribution/SiftX-<版本>-<构建号>-macOS-arm64.zip`，其中应用与 `SiftX-ThirdParty-Sources.zip` 一起分发。`Scripts/prepare_third_party.py --fetch` 取得缺失的固定版本源码并核对源码及构建前 runtime 清单；第三方维护/构建/来源记录见 `ThirdParty/README.md`、`BUILDING.md`、`PROVENANCE.md`。
+
 ```sh
 python3 Scripts/generate_project.py
 xcodebuild -project SiftX.xcodeproj -scheme SiftX -configuration Debug \
@@ -41,7 +45,7 @@ swift test
 node --test Tests/ProbeTests/*.test.cjs
 ```
 
-下载集成测试先运行 `python3 Scripts/make_fixtures.py` 和 `python3 Scripts/fixture_server.py`，再执行 README 中的 `xcodebuild ... -only-testing:SiftXDownloadTests test`。生成资源需要完整 FFmpeg；运行已构建的 App 使用内置处理器。
+下载集成测试先运行 `python3 Scripts/make_fixtures.py` 和 `python3 Scripts/fixture_server.py`，再运行 Xcode 的 `SiftXDownloadTests` 测试 target。生成资源需要完整 FFmpeg；运行已构建的 App 使用内置处理器。
 
 预览集成测试使用同一测试站点：`SIFTX_PREVIEW_FIXTURE_BASE_URL=http://127.0.0.1:18765 swift test --filter MediaPreviewTests`，未设置站点地址时跳过。
 

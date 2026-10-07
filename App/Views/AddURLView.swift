@@ -14,10 +14,10 @@ struct AddURLView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("添加媒体链接").font(.title2.bold())
-            Text("粘贴 YouTube 视频链接，或可直接访问的视频、音频与媒体播放列表链接。下载后可离线观看学习。")
+            Text("粘贴网页或媒体链接，读取可用选项后添加下载。请仅下载您拥有版权或已获得授权的素材。")
                 .foregroundStyle(.secondary)
-            TextField("YouTube 或媒体链接", text: $link).textFieldStyle(.roundedBorder)
-                .accessibilityLabel("YouTube 或媒体链接")
+            TextField("网页或媒体链接", text: $link).textFieldStyle(.roundedBorder)
+                .accessibilityLabel("网页或媒体链接")
                 .disabled(busy)
                 .onSubmit { analyze() }
             TextField("标题（可选）", text: $title).textFieldStyle(.roundedBorder).disabled(busy)
@@ -65,18 +65,23 @@ struct AddURLView: View {
         guard let url = URL(string: link.trimmingCharacters(in: .whitespacesAndNewlines)) else { error = "请输入有效的媒体链接。"; return }
         do { try URLSafety.validate(url) } catch { self.error = error.localizedDescription; return }
         if YouTubeURL.isYouTubeHost(url), YouTubeURL.canonical(url) == nil {
-            error = "请粘贴单个 YouTube 视频链接（watch、Shorts 或 youtu.be）。"; return
+            error = "请粘贴完整的单个视频页面链接。"; return
+        }
+        if BilibiliURL.isBilibiliHost(url), BilibiliURL.canonical(url) == nil {
+            error = "请粘贴完整的单个视频页面链接。"; return
         }
         let classified = URLSafety.classify(url)
         let youtube = YouTubeURL.canonical(url)
+        let bilibili = BilibiliURL.canonical(url)
+        let site = youtube ?? bilibili
         let customTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        let candidate = MediaCandidate(id: UUID().uuidString, sessionID: "manual", title: customTitle.isEmpty ? (youtube == nil ? url.deletingPathExtension().lastPathComponent : "") : customTitle, pageTitle: customTitle.isEmpty ? (url.host ?? "媒体") : customTitle, pageURL: url, sourceURL: youtube ?? url, kind: classified?.0 ?? .video, transport: youtube == nil ? classified?.1 ?? .direct : .youtube)
+        let candidate = MediaCandidate(id: UUID().uuidString, sessionID: "manual", title: customTitle.isEmpty ? (site == nil ? url.deletingPathExtension().lastPathComponent : "") : customTitle, pageTitle: customTitle.isEmpty ? (url.host ?? "媒体") : customTitle, pageURL: url, sourceURL: site ?? url, kind: classified?.0 ?? .video, transport: youtube != nil ? .youtube : bilibili != nil ? .bilibili : classified?.1 ?? .direct)
         busy = true
         analysis = Task {
             defer { busy = false }
             do {
-                let choices = candidate.transport == .youtube
-                    ? try await YouTubeDownloader().candidates(for: candidate)
+                let choices = candidate.transport == .youtube || candidate.transport == .bilibili
+                    ? try await SiteMediaDownloader(transport: candidate.transport).candidates(for: candidate)
                     : try await MediaAnalyzer().candidates(for: candidate)
                 try Task.checkCancellation()
                 candidates = choices

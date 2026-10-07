@@ -141,8 +141,8 @@ actor DownloadEngine {
         guard candidate.protection == nil else { throw DownloadError.protectedMedia }
         try URLSafety.validate(candidate.sourceURL)
         let directory = try DownloadFiles.stagingDirectory(id: id, root: stagingRoot)
-        if candidate.transport == .youtube {
-            return try await YouTubeDownloader().download(candidate: candidate, directory: directory, progress: progress, processing: processing)
+        if candidate.transport == .youtube || candidate.transport == .bilibili {
+            return try await SiteMediaDownloader(transport: candidate.transport).download(candidate: candidate, directory: directory, progress: progress, processing: processing)
         }
         if candidate.transport != .direct {
             let plan = try await analyzer.plan(for: candidate)

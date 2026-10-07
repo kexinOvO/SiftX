@@ -147,6 +147,12 @@ private actor ProbeIngestion {
             try store.savePage(PageSession(id: request.sessionID, pageURL: pageURL, title: request.title, candidates: choices))
             return choices.filter { $0.protection == nil }.count
         }
+        if BilibiliURL.canonical(pageURL) != nil {
+            let choices = BilibiliURL.pageCandidates(url: pageURL, title: request.title, sessionID: request.sessionID,
+                                                     protected: request.notices.contains("protected") || request.resources.contains(where: \.protected))
+            try store.savePage(PageSession(id: request.sessionID, pageURL: pageURL, title: request.title, candidates: choices))
+            return choices.filter { $0.protection == nil }.count
+        }
         if request.forceReanalysis {
             analyzed = analyzed.filter { !$0.key.hasPrefix(request.sessionID + "|") }
             await analyzer.clearCache()

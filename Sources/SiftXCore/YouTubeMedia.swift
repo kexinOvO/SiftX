@@ -1,13 +1,15 @@
 import Foundation
 
 /// Persist the watch URL and format identities, never an expiring CDN URL.
-public struct YouTubeFormatSelection: Codable, Hashable, Sendable {
+public struct SiteFormatSelection: Codable, Hashable, Sendable {
     public var mediaFormatID: String
     public var audioFormatID: String?
     public init(mediaFormatID: String, audioFormatID: String? = nil) {
         self.mediaFormatID = mediaFormatID; self.audioFormatID = audioFormatID
     }
 }
+
+public typealias YouTubeFormatSelection = SiteFormatSelection
 
 public enum YouTubeURL {
     public static func isYouTubeHost(_ url: URL) -> Bool {
@@ -47,6 +49,13 @@ public enum YouTubeURL {
 }
 
 public enum YouTubeMedia {
+    public static func choices(data: Data, base: MediaCandidate) throws -> [MediaCandidate] {
+        try ExtractedMedia.choices(data: data, base: base, transport: .youtube)
+    }
+}
+
+/// Shared MP4/M4A format selection for the bundled, explicitly selected site extractors.
+enum ExtractedMedia {
     private struct Info: Decodable {
         var id: String
         var title: String?
@@ -55,6 +64,8 @@ public enum YouTubeMedia {
         var is_live: Bool?
         var live_status: String?
         var _type: String?
+        var webpage_url: String?
+        var extractor_key: String?
         var formats: [Format]?
     }
     private struct Format: Decodable {
@@ -89,15 +100,23 @@ public enum YouTubeMedia {
         }
     }
 
-    public static func choices(data: Data, base: MediaCandidate) throws -> [MediaCandidate] {
+    static func choices(data: Data, base: MediaCandidate, transport: MediaTransport) throws -> [MediaCandidate] {
         guard data.count <= 8_388_608 else { throw MediaError.resourceTooLarge }
-        guard let watch = YouTubeURL.canonical(base.sourceURL) else { throw MediaError.invalidURL }
+        guard let watch = transport == .bilibili ? BilibiliURL.canonical(base.sourceURL) : YouTubeURL.canonical(base.sourceURL) else { throw MediaError.invalidURL }
         let info = try JSONDecoder().decode(Info.self, from: data)
-        guard watch.absoluteString.hasSuffix("v=\(info.id)"), info._type == nil || info._type == "video" else {
-            throw MediaError.unsupported("请添加单个 YouTube 视频链接。")
+        guard info._type == nil || info._type == "video" else {
+            throw MediaError.unsupported("请添加单个视频页面链接。")
+        }
+        if transport == .bilibili {
+            guard info.extractor_key?.lowercased() == "bilibili",
+                  let source = info.webpage_url.flatMap(URL.init(string:)), BilibiliURL.canonical(source) == watch else {
+                throw MediaError.unsupported("返回的视频与所选链接不一致，请重新读取。")
+            }
+        } else if !watch.absoluteString.hasSuffix("v=\(info.id)") {
+            throw MediaError.unsupported("请添加单个视频页面链接。")
         }
         guard info.is_live != true, !["is_live", "is_upcoming", "post_live"].contains(info.live_status ?? "") else {
-            throw MediaError.unsupported("请等待 YouTube 直播结束并完成处理后再下载。")
+            throw MediaError.unsupported("请等待直播结束并完成处理后再下载。")
         }
         let all = Array((info.formats ?? []).prefix(1000))
         let supported = all.filter(\.supported)
@@ -111,23 +130,25 @@ public enum YouTubeMedia {
         }
         var sizes = Set<String>()
         var choices = videos.filter { sizes.insert("\($0.width ?? 0)x\($0.height ?? 0)").inserted }.prefix(20).map { format in
-            makeCandidate(format: format, audio: format.audio ? nil : audio, kind: .video, info: info, base: base, watch: watch)
+            makeCandidate(format: format, audio: format.audio ? nil : audio, kind: .video, info: info, base: base, watch: watch, transport: transport)
         }
-        if let audio { choices.append(makeCandidate(format: audio, audio: nil, kind: .audio, info: info, base: base, watch: watch)) }
+        if let audio { choices.append(makeCandidate(format: audio, audio: nil, kind: .audio, info: info, base: base, watch: watch, transport: transport)) }
         guard !choices.isEmpty else {
             if all.contains(where: { $0.has_drm == true }) { throw MediaError.protectedMedia }
-            throw MediaError.unsupported("YouTube 暂未提供可下载的 MP4 视频或 M4A 音频。请稍后重新读取。")
+            throw MediaError.unsupported("此链接暂未提供可下载的视频或音频，请稍后重新读取。")
         }
         return choices
     }
 
-    private static func makeCandidate(format: Format, audio: Format?, kind: MediaKind, info: Info, base: MediaCandidate, watch: URL) -> MediaCandidate {
+    private static func makeCandidate(format: Format, audio: Format?, kind: MediaKind, info: Info, base: MediaCandidate, watch: URL, transport: MediaTransport) -> MediaCandidate {
         var choice = base
-        choice.sourceURL = watch; choice.transport = .youtube; choice.kind = kind
-        choice.title = base.title.isEmpty ? String((info.title ?? "YouTube 视频").prefix(500)) : base.title
+        choice.sourceURL = watch; choice.transport = transport; choice.kind = kind
+        choice.title = base.title.isEmpty ? String((info.title ?? "视频").prefix(500)) : base.title
         choice.pageTitle = String((info.title ?? base.pageTitle).prefix(500))
         choice.id = MediaIdentity.stableID(sessionID: base.sessionID, url: watch, variant: format.format_id + "+" + (audio?.format_id ?? ""))
-        choice.youtubeFormat = YouTubeFormatSelection(mediaFormatID: format.format_id, audioFormatID: audio?.format_id)
+        let selection = SiteFormatSelection(mediaFormatID: format.format_id, audioFormatID: audio?.format_id)
+        choice.youtubeFormat = transport == .youtube ? selection : nil
+        choice.bilibiliFormat = transport == .bilibili ? selection : nil
         choice.quality = kind == .video ? "\(format.height ?? 0)p" : "仅音频 · M4A"
         choice.width = kind == .video ? format.width : nil; choice.height = kind == .video ? format.height : nil
         choice.hasAudio = true; choice.audioURL = nil; choice.headers = [:]; choice.plan = nil

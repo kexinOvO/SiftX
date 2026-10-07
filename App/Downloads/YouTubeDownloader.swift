@@ -5,28 +5,80 @@ enum YouTubeDownloadError: LocalizedError, Sendable {
     case unavailable, timedOut, outputLimit, failed(String), formatChanged
     var errorDescription: String? {
         switch self {
-        case .unavailable: return "找不到 YouTube 下载组件。请重新安装完整的 SiftX 应用。"
-        case .timedOut: return "读取 YouTube 信息超时。请检查网络连接后重试。"
-        case .outputLimit: return "YouTube 返回的媒体信息过大。"
-        case .formatChanged: return "所选 YouTube 清晰度已变更。请重新读取链接并选择清晰度。"
+        case .unavailable: return "找不到下载组件，请重新安装完整的 SiftX 应用。"
+        case .timedOut: return "读取媒体信息超时，请检查网络连接后重试。"
+        case .outputLimit: return "返回的媒体信息过大。"
+        case .formatChanged: return "所选清晰度已变更，请重新读取链接并选择清晰度。"
         case .failed(let diagnostic):
             let text = diagnostic.lowercased()
             if text.contains("private video") || text.contains("members-only") || text.contains("sign in") || text.contains("age-restricted") || text.contains("confirm your age") {
-                return "此 YouTube 视频需要登录、年龄验证或会员权限，暂时无法下载。"
+                return "此媒体需要登录、年龄验证或会员权限，暂时无法下载。"
             }
-            if text.contains("not available in your country") || text.contains("geo") { return "此 YouTube 视频在当前地区不可用。" }
-            if text.contains("unavailable") || text.contains("removed") { return "此 YouTube 视频已下架或不可用。" }
-            if text.contains("403") { return "YouTube 暂时拒绝下载（403）。请稍后重新读取视频链接。" }
-            if text.contains("429") { return "YouTube 暂时限制请求次数，请稍后重试。" }
+            if text.contains("not available in your country") || text.contains("geo") { return "此媒体在当前地区不可用。" }
+            if text.contains("unavailable") || text.contains("removed") { return "此媒体已下架或不可用。" }
+            if text.contains("403") { return "来源网站暂时拒绝访问（403），请稍后重新读取链接。" }
+            if text.contains("429") { return "来源网站暂时限制请求次数，请稍后重试。" }
             if text.contains("timed out") || text.contains("unable to download") || text.contains("network") || text.contains("certificate") {
-                return "无法连接 YouTube。请检查网络或代理连接后重试。"
+                return "无法连接来源网站，请检查网络或代理连接后重试。"
             }
-            return "无法解析或下载此 YouTube 视频。请稍后重新读取；若持续失败，请更新 SiftX 的 YouTube 组件。"
+            return "无法读取或下载此媒体，请稍后重新读取；若持续失败，请更新 SiftX。"
         }
     }
 }
 
-struct YouTubeDownloader: Sendable {
+enum BilibiliDownloadError: LocalizedError, Sendable {
+    case tool(YouTubeDownloadError)
+    var errorDescription: String? {
+        guard case .tool(let error) = self else { return nil }
+        switch error {
+        case .unavailable: return "找不到下载组件，请重新安装完整的 SiftX 应用。"
+        case .timedOut: return "读取媒体信息超时，请检查网络连接后重试。"
+        case .outputLimit: return "返回的媒体信息过大。"
+        case .formatChanged: return "所选清晰度已变更，请重新读取链接并选择清晰度。"
+        case .failed(let diagnostic):
+            let text = diagnostic.lowercased()
+            if text.contains("premium") || text.contains("members") || text.contains("login") || text.contains("log in") || text.contains("sign in") {
+                return "此媒体或清晰度需要登录或会员权限，暂时无法下载。"
+            }
+            if text.contains("-352") || text.contains("412") || text.contains("403") {
+                return "来源网站暂时拒绝访问此媒体，请稍后重新读取。"
+            }
+            if text.contains("429") { return "来源网站暂时限制请求次数，请稍后重试。" }
+            if text.contains("404") || text.contains("not found") || text.contains("not available") { return "此媒体已下架或不可用。" }
+            if text.contains("timed out") || text.contains("unable to download") || text.contains("network") || text.contains("certificate") {
+                return "无法连接来源网站，请检查网络或代理连接后重试。"
+            }
+            return "无法读取或下载此媒体，请稍后重新读取链接。"
+        }
+    }
+}
+
+typealias YouTubeDownloader = SiteMediaDownloader
+
+/// Re-resolves signed URLs in the app, then downloads each selected track locally.
+struct SiteMediaDownloader: Sendable {
+    var transport: MediaTransport = .youtube
+    private var prefix: String { transport == .bilibili ? "bilibili-" : "youtube-" }
+
+    private func canonical(_ url: URL) -> URL? {
+        switch transport {
+        case .youtube: return YouTubeURL.canonical(url)
+        case .bilibili: return BilibiliURL.canonical(url)
+        default: return nil
+        }
+    }
+
+    private func siteError(_ error: YouTubeDownloadError) -> any Error {
+        if transport == .bilibili { return BilibiliDownloadError.tool(error) }
+        return error
+    }
+
+    private func run(executable: URL, arguments: [String], directory: URL? = nil, timeout: TimeInterval? = nil,
+                     progress: (@Sendable (TransferProgress) -> Void)? = nil) async throws -> Data {
+        do { return try await YouTubeToolProcess().run(executable: executable, arguments: arguments, directory: directory, timeout: timeout, progress: progress) }
+        catch let error as YouTubeDownloadError { throw siteError(error) }
+    }
+
     private var tools: (extractor: URL, runtime: URL) {
         get throws {
             #if DEBUG
@@ -34,11 +86,11 @@ struct YouTubeDownloader: Sendable {
             #else
             let root: URL? = nil
             #endif
-            guard let resource = root ?? Bundle.main.resourceURL?.appendingPathComponent("YouTubeTools", isDirectory: true) else { throw YouTubeDownloadError.unavailable }
+            guard let resource = root ?? Bundle.main.resourceURL?.appendingPathComponent("YouTubeTools", isDirectory: true) else { throw siteError(.unavailable) }
             let extractor = resource.appendingPathComponent("yt-dlp")
             let runtime = resource.appendingPathComponent("qjs")
             guard FileManager.default.isExecutableFile(atPath: extractor.path), FileManager.default.isExecutableFile(atPath: runtime.path) else {
-                throw YouTubeDownloadError.unavailable
+                throw siteError(.unavailable)
             }
             return (extractor, runtime)
         }
@@ -46,18 +98,18 @@ struct YouTubeDownloader: Sendable {
 
     private func arguments(runtime: URL) -> [String] {
         ["--ignore-config", "--no-plugin-dirs", "--no-cache-dir", "--no-remote-components", "--no-js-runtimes",
-         "--js-runtimes", "quickjs:\(runtime.path)", "--no-playlist", "--use-extractors", "youtube",
+         "--js-runtimes", "quickjs:\(runtime.path)", "--no-playlist", "--use-extractors", transport == .bilibili ? "bilibili" : "youtube",
          "--socket-timeout", "20", "--retries", "2", "--extractor-retries", "2", "--no-colors"]
     }
 
     func candidates(for base: MediaCandidate) async throws -> [MediaCandidate] {
         guard base.protection == nil else { throw MediaError.protectedMedia }
-        guard let watch = YouTubeURL.canonical(base.sourceURL) else { throw MediaError.invalidURL }
+        guard let watch = canonical(base.sourceURL) else { throw MediaError.invalidURL }
         let tools = try tools
-        let data = try await YouTubeToolProcess().run(executable: tools.extractor,
+        let data = try await run(executable: tools.extractor,
             arguments: arguments(runtime: tools.runtime) + ["--dump-single-json", "--skip-download", "--", watch.absoluteString], timeout: 120)
         try Task.checkCancellation()
-        return try YouTubeMedia.choices(data: data, base: base)
+        return transport == .bilibili ? try BilibiliMedia.choices(data: data, base: base) : try YouTubeMedia.choices(data: data, base: base)
     }
 
     func download(candidate: MediaCandidate, directory: URL,
@@ -65,17 +117,18 @@ struct YouTubeDownloader: Sendable {
                   processing: @escaping @Sendable () -> Void) async throws -> DownloadArtifact {
         let choices = try await candidates(for: candidate)
         let selected: MediaCandidate?
-        if let selection = candidate.youtubeFormat {
-            selected = choices.first { $0.youtubeFormat == selection && $0.kind == candidate.kind }
+        let requested = transport == .bilibili ? candidate.bilibiliFormat : candidate.youtubeFormat
+        if let selection = requested {
+            selected = choices.first { (transport == .bilibili ? $0.bilibiliFormat : $0.youtubeFormat) == selection && $0.kind == candidate.kind }
         } else { selected = choices.first { $0.kind == candidate.kind } }
-        guard let choice = selected, let selection = choice.youtubeFormat else { throw YouTubeDownloadError.formatChanged }
+        guard let choice = selected, let selection = transport == .bilibili ? choice.bilibiliFormat : choice.youtubeFormat else { throw siteError(.formatChanged) }
         let tools = try tools
-        let media = directory.appendingPathComponent(candidate.kind == .audio ? "youtube-audio.m4a" : "youtube-video.mp4")
+        let media = directory.appendingPathComponent(prefix + (candidate.kind == .audio ? "audio.m4a" : "video.mp4"))
         // A pinned format identity also owns its partial files across pause/retry.
         let identity = try JSONEncoder().encode(selection)
-        let identityFile = directory.appendingPathComponent("youtube-format.json")
+        let identityFile = directory.appendingPathComponent(prefix + "format.json")
         if (try? Data(contentsOf: identityFile)) != identity {
-            for file in try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil) where file.lastPathComponent.hasPrefix("youtube-") {
+            for file in try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil) where file.lastPathComponent.hasPrefix(prefix) {
                 try FileManager.default.removeItem(at: file)
             }
             try identity.write(to: identityFile, options: .atomic)
@@ -87,7 +140,7 @@ struct YouTubeDownloader: Sendable {
                 "--newline", "--progress", "--progress-delta", "0.25", "--quiet", "--no-warnings",
                 "--progress-template", "download:SIFTX:%(progress.downloaded_bytes)d:%(progress.total_bytes,progress.total_bytes_estimate)s",
                 "--match-filter", "!is_live & !is_upcoming", "--", watch.absoluteString]
-            _ = try await YouTubeToolProcess().run(executable: tools.extractor, arguments: args, directory: directory) { update in
+            _ = try await run(executable: tools.extractor, arguments: args, directory: directory) { update in
                 progress(TransferProgress(bytes: offset + update.bytes, total: choice.estimatedBytes ?? update.total.map { offset + $0 }))
             }
             try Task.checkCancellation()
@@ -99,7 +152,7 @@ struct YouTubeDownloader: Sendable {
         var audio: URL?
         var bytes = mediaBytes
         if let audioID = selection.audioFormatID {
-            let file = directory.appendingPathComponent("youtube-audio.m4a")
+            let file = directory.appendingPathComponent(prefix + "audio.m4a")
             bytes += try await fetch(audioID, to: file, offset: mediaBytes)
             audio = file
         }

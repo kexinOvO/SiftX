@@ -142,6 +142,10 @@ final class PopoverModel: ObservableObject {
 
     func preview(_ candidate: MediaCandidate) {
         guard candidate.protection == nil else { return }
+        if candidate.transport == .bilibili, candidate.kind == .audio {
+            NSWorkspace.shared.open(candidate.pageURL)
+            return
+        }
         if candidate.kind == .audio {
             toggleAudio(candidate)
         } else {
@@ -484,6 +488,7 @@ private struct MediaChoiceRow: View {
     var download: () -> Void
 
     private var audioHelp: String {
+        if candidate.transport == .bilibili, candidate.kind == .audio { return "在原网页试听" }
         guard let audio else { return "点击试听" }
         if audio.failed { return "播放失败，点击重试" }
         if audio.loading { return "正在加载音频…" }

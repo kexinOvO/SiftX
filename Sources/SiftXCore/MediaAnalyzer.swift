@@ -18,14 +18,16 @@ public actor MediaAnalyzer {
 
     public func candidates(for candidate: MediaCandidate) async throws -> [MediaCandidate] {
         try URLSafety.validate(candidate.sourceURL)
-        if candidate.transport == .youtube { throw MediaError.unsupported("请在 SiftX 应用中读取 YouTube 视频信息。") }
+        if candidate.transport == .youtube { throw MediaError.unsupported("请在 SiftX 应用中读取网页媒体信息。") }
+        if candidate.transport == .bilibili { throw MediaError.unsupported("请在 SiftX 应用中读取网页媒体信息。") }
         if candidate.protection != nil || candidate.transport == .direct { return [candidate] }
         var candidate = candidate
         // The observed Content-Length is the manifest size, not the media size.
         candidate.estimatedBytes = nil; candidate.duration = nil; candidate.encryption = nil
         let document = try await fetch(candidate.sourceURL, headers: candidate.headers)
         switch candidate.transport {
-        case .youtube: throw MediaError.unsupported("请在 SiftX 应用中读取 YouTube 视频信息。")
+        case .youtube: throw MediaError.unsupported("请在 SiftX 应用中读取网页媒体信息。")
+        case .bilibili: throw MediaError.unsupported("请在 SiftX 应用中读取网页媒体信息。")
         case .direct: return [candidate]
         case .hls:
             let manifest = try HLSParser.parse(document.text, baseURL: document.url)
@@ -113,7 +115,8 @@ public actor MediaAnalyzer {
             return plan
         }
         switch candidate.transport {
-        case .youtube: throw MediaError.unsupported("YouTube 视频由专用下载组件处理。")
+        case .youtube: throw MediaError.unsupported("此网页媒体由下载组件处理。")
+        case .bilibili: throw MediaError.unsupported("此网页媒体由下载组件处理。")
         case .direct:
             let ext = candidate.sourceURL.pathExtension.lowercased()
             let known = Set(["mp4", "mov", "webm", "mkv", "m4v", "ogv", "m4a", "aac", "mp3", "wav", "flac", "ogg", "oga", "aiff", "opus"])

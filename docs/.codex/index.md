@@ -1,6 +1,6 @@
 # SiftX 项目上下文
 
-Last reviewed: 2026-10-06
+Last reviewed: 2026-10-07
 
 - [项目与运行方式](project.md)
 - [架构与数据流](architecture.md)

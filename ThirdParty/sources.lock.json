@@ -1,0 +1,407 @@
+{
+  "schema": 1,
+  "yt_dlp_release": "2026.08.19",
+  "components": [
+    {
+      "name": "altgraph",
+      "version": "0.17.5",
+      "role": "build",
+      "archive": "Sources/altgraph-0.17.5.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/7e/f8/97fdf103f38fed6792a1601dbc16cc8aac56e7459a9fff08c812d8ae177a/altgraph-0.17.5.tar.gz",
+      "sha256": "c87b395dd12fabde9c99573a9749d67da8d29ef9de0125c7f536699b4a9bc9e7",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "astring",
+      "version": "1.9.0",
+      "role": "runtime-js",
+      "archive": "Sources/astring-1.9.0.tgz",
+      "url": "https://registry.npmjs.org/astring/-/astring-1.9.0.tgz",
+      "sha256": "422cca9707aca293e85eb54fdbbc5a0a167ad415236a325ff342e720e67afb49",
+      "license": "MIT",
+      "evidence": "yt-dlp-ejs 0.8.0 package-lock.json resolved URL and integrity"
+    },
+    {
+      "name": "astring repository",
+      "version": "1.9.0",
+      "role": "runtime-js-source",
+      "archive": "Sources/astring-repository-1.9.0.tar.gz",
+      "url": "https://codeload.github.com/davidbonnet/astring/tar.gz/refs/tags/v1.9.0",
+      "sha256": "dae80ff54c154215c607f99b7f52292e38844a20b07d3654dbda6c3fba804284",
+      "license": "MIT",
+      "evidence": "Original editable source for the version pinned by yt-dlp-ejs 0.8.0 package-lock.json; matching npm archive retained separately"
+    },
+    {
+      "name": "BoringSSL",
+      "version": "156c7b75ae9b8c3b3f847acf264f17594c3859fb",
+      "role": "runtime-native",
+      "archive": "Sources/boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "url": "https://github.com/google/boringssl/archive/156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "sha256": "450e169b284697c6eafe523cb7679f4221fbe1a0993f773a566c33b188762844",
+      "license": "Apache-2.0; see LICENSE",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "brotli",
+      "version": "1.2.0",
+      "role": "runtime",
+      "archive": "Sources/brotli-1.2.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz",
+      "sha256": "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "Brotli native",
+      "version": "1.2.0",
+      "role": "runtime-native",
+      "archive": "Sources/brotli-native-1.2.0.tar.gz",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.0.tar.gz",
+      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec",
+      "license": "MIT",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "role": "runtime",
+      "archive": "Sources/certifi-2026.7.22.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz",
+      "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55",
+      "license": "MPL-2.0",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "role": "runtime",
+      "archive": "Sources/cffi-2.1.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz",
+      "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.0",
+      "role": "runtime",
+      "archive": "Sources/charset_normalizer-3.5.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/cb/31/4971872b3ed8715346231fb6eb4da8fcba65a4143c189db151ee28a2812b/charset_normalizer-3.5.0.tar.gz",
+      "sha256": "49bd5feb59b0bf3cbf6ebcf4352e371c95b9da9bacd4449f8b64d0ad2c10a26e",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "CPython",
+      "version": "3.14.6",
+      "role": "runtime",
+      "archive": "Sources/Python-3.14.6.tar.xz",
+      "url": "https://www.python.org/ftp/python/3.14.6/Python-3.14.6.tar.xz",
+      "sha256": "143b1dddefaec3bd2e21e3b839b34a2b7fb9842272883c576420d605e9f30c63",
+      "license": "PSF-2.0",
+      "evidence": "Pinned upstream release; bundled runtime version / upstream build workflow"
+    },
+    {
+      "name": "curl",
+      "version": "curl-8_21_0",
+      "role": "runtime-native",
+      "archive": "Sources/curl-curl-8_21_0.tar.gz",
+      "url": "https://github.com/curl/curl/archive/curl-8_21_0.tar.gz",
+      "sha256": "ec753aa6f408a3ca9f0d6d5f7a77417aecd1544db13c03ae5d443612bf367364",
+      "license": "curl",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "curl-cffi",
+      "version": "0.16.0",
+      "role": "runtime",
+      "archive": "Sources/curl_cffi-0.16.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/b4/23/d32e113b16dbfb458bea408871ed98dd12f306a366a04215e84537e0af7e/curl_cffi-0.16.0.tar.gz",
+      "sha256": "b00b423da8028eb6221e3b63bcd63d681150c07cee8b16000d1f7ea292731895",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "curl-impersonate",
+      "version": "2.0.0",
+      "role": "runtime-native",
+      "archive": "Sources/curl-impersonate-2.0.0.tar.gz",
+      "url": "https://codeload.github.com/lexiforest/curl-impersonate/tar.gz/refs/tags/v2.0.0",
+      "sha256": "a9827cfce8246e78b86e26f012ae9fcb9bc05822009cd7ce4c9e130af6bdfb6f",
+      "license": "MIT",
+      "evidence": "curl_cffi 0.16.0 scripts/build.py pins libcurl-impersonate 2.0.0; native banner libcurl 8.21.0-IMPERSONATE"
+    },
+    {
+      "name": "delocate",
+      "version": "0.13.0",
+      "role": "build",
+      "archive": "Sources/delocate-0.13.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/2d/21/f1679803b2582632e7b9fdd83e675d5fc661513433c0f661938414978bc7/delocate-0.13.0.tar.gz",
+      "sha256": "a93e67a9f56ee01a3f7096a042231d4ac37fecac873cd5ea34ea2b4f43a8fa13",
+      "license": "BSD-2-Clause",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "FFmpeg",
+      "version": "7.1.1",
+      "role": "runtime",
+      "archive": "Sources/ffmpeg-7.1.1.tar.xz",
+      "url": "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz",
+      "sha256": "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1",
+      "license": "LGPL-2.1-or-later",
+      "evidence": "Pinned upstream release; bundled runtime version / upstream build workflow"
+    },
+    {
+      "name": "idna",
+      "version": "3.18",
+      "role": "runtime",
+      "archive": "Sources/idna-3.18.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/cd/63/9496c57188a2ee585e0f1db071d75089a11e98aa86eb99d9d7618fc1edce/idna-3.18.tar.gz",
+      "sha256": "ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848",
+      "license": "BSD-3-Clause",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "macholib",
+      "version": "1.16.4",
+      "role": "build",
+      "archive": "Sources/macholib-1.16.4.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/10/2f/97589876ea967487978071c9042518d28b958d87b17dceb7cdc1d881f963/macholib-1.16.4.tar.gz",
+      "sha256": "f408c93ab2e995cd2c46e34fe328b130404be143469e41bc366c807448979362",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "meriyah",
+      "version": "6.1.4",
+      "role": "runtime-js",
+      "archive": "Sources/meriyah-6.1.4.tgz",
+      "url": "https://registry.npmjs.org/meriyah/-/meriyah-6.1.4.tgz",
+      "sha256": "c0f105d9fb01bb48c76ea6ee382e6099277b95e3f351fb99b67ddfb79d6088b8",
+      "license": "ISC",
+      "evidence": "yt-dlp-ejs 0.8.0 package-lock.json resolved URL and integrity"
+    },
+    {
+      "name": "meriyah repository",
+      "version": "6.1.4",
+      "role": "runtime-js-source",
+      "archive": "Sources/meriyah-repository-6.1.4.tar.gz",
+      "url": "https://codeload.github.com/meriyah/meriyah/tar.gz/refs/tags/v6.1.4",
+      "sha256": "047ad1407d17df3aa78ea4f3d97c2f7953fcb9399e9cec8c2cc91a35a932a630",
+      "license": "ISC",
+      "evidence": "Original editable source for the version pinned by yt-dlp-ejs 0.8.0 package-lock.json; matching npm archive retained separately"
+    },
+    {
+      "name": "mutagen",
+      "version": "1.48.1",
+      "role": "runtime",
+      "archive": "Sources/mutagen-1.48.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/df/70/1675da133ea92227da41bf5b24e1c66be597ff736a1533ade41da986852f/mutagen-1.48.1.tar.gz",
+      "sha256": "8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173",
+      "license": "GPL-2.0-or-later",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "nghttp2",
+      "version": "1.63.0",
+      "role": "runtime-native",
+      "archive": "Sources/nghttp2-1.63.0.tar.bz2",
+      "url": "https://github.com/nghttp2/nghttp2/releases/download/v1.63.0/nghttp2-1.63.0.tar.bz2",
+      "sha256": "607b174554d22a828bc532d1d734fe0f729b5d5ed207f2f12e96a62e83f29c55",
+      "license": "MIT",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "nghttp3",
+      "version": "1.15.0",
+      "role": "runtime-native",
+      "archive": "Sources/nghttp3-1.15.0.tar.bz2",
+      "url": "https://github.com/ngtcp2/nghttp3/releases/download/v1.15.0/nghttp3-1.15.0.tar.bz2",
+      "sha256": "c6c491a52804814098e446630e6efc459afc0d3da7952ffe6cbdc0b3f99b2b62",
+      "license": "MIT",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "ngtcp2",
+      "version": "1.20.0",
+      "role": "runtime-native",
+      "archive": "Sources/ngtcp2-1.20.0.tar.bz2",
+      "url": "https://github.com/ngtcp2/ngtcp2/releases/download/v1.20.0/ngtcp2-1.20.0.tar.bz2",
+      "sha256": "871ec97ad86803cf312901b0c393b0ee70163e25a87c9b2894d1234341ce4e97",
+      "license": "MIT",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "OpenSSL",
+      "version": "3.5.7",
+      "role": "runtime",
+      "archive": "Sources/openssl-3.5.7.tar.gz",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz",
+      "sha256": "a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8",
+      "license": "Apache-2.0",
+      "evidence": "Pinned upstream release; bundled runtime version / upstream build workflow"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "role": "build",
+      "archive": "Sources/packaging-26.3.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz",
+      "sha256": "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "role": "runtime",
+      "archive": "Sources/pycparser-3.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/1b/7d/92392ff7815c21062bea51aa7b87d45576f649f16458d78b7cf94b9ab2e6/pycparser-3.0.tar.gz",
+      "sha256": "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29",
+      "license": "BSD-3-Clause",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "pycryptodomex",
+      "version": "3.23.0",
+      "role": "runtime",
+      "archive": "Sources/pycryptodomex-3.23.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/c9/85/e24bf90972a30b0fcd16c73009add1d7d7cd9140c2498a68252028899e41/pycryptodomex-3.23.0.tar.gz",
+      "sha256": "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da",
+      "license": "BSD-2-Clause AND LicenseRef-Public-Domain",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "pyinstaller",
+      "version": "6.22.0",
+      "role": "build-and-bootloader",
+      "archive": "Sources/pyinstaller-6.22.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz",
+      "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+      "license": "GPL-2.0-or-later WITH Bootloader-exception",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "pyinstaller-hooks-contrib",
+      "version": "2026.6",
+      "role": "build",
+      "archive": "Sources/pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/94/5b/c9fe0db5e83ee1c39b2258fa21d23b15e1a60786b6c5990ee5074ead8bb6/pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "sha256": "bef5002c32f4f50bd55b005da12cff64eca8783e7eaf86a06a62410164bab725",
+      "license": "GPL-2.0-or-later AND Apache-2.0",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "QuickJS-NG",
+      "version": "0.17.0",
+      "role": "runtime",
+      "archive": "Sources/quickjs-ng-0.17.0.tar.gz",
+      "url": "https://codeload.github.com/quickjs-ng/quickjs/tar.gz/refs/tags/v0.17.0",
+      "sha256": "559bc4c420475e55c7ab4510adbc562f55d7524d75e8e89d79ce4bb02f5687d9",
+      "license": "MIT",
+      "evidence": "Pinned upstream release; bundled runtime version / upstream build workflow"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "role": "runtime",
+      "archive": "Sources/requests-2.34.2.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz",
+      "sha256": "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed",
+      "license": "Apache-2.0",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "setuptools",
+      "version": "84.0.0",
+      "role": "build",
+      "archive": "Sources/setuptools-84.0.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/6d/44/f5da03a8ef95d369145c5bb53050e7877c9f3d312e128605fd9504829143/setuptools-84.0.0.tar.gz",
+      "sha256": "f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "role": "runtime",
+      "archive": "Sources/typing_extensions-4.16.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/f6/cc/6253133b5bb138fc3306cebfbda2c520f545d36b5be2c7255cc528bb45d6/typing_extensions-4.16.0.tar.gz",
+      "sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5",
+      "license": "PSF-2.0",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.7.0",
+      "role": "runtime",
+      "archive": "Sources/urllib3-2.7.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz",
+      "sha256": "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c",
+      "license": "MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "websockets",
+      "version": "17.0.1",
+      "role": "runtime",
+      "archive": "Sources/websockets-17.0.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/f7/96/e01084f83a64bcb3a27994bd0cb0db68ff29d9c6707fae37ec19b18ba990/websockets-17.0.1.tar.gz",
+      "sha256": "5baa9bc0dfbae8c507e51c8cf1b6d4628086f7a87bbd3a9952bd5f035451f1cc",
+      "license": "BSD-3-Clause",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "yt-dlp",
+      "version": "2026.08.19",
+      "role": "runtime",
+      "archive": "Sources/yt-dlp-2026.08.19.tar.gz",
+      "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.tar.gz",
+      "sha256": "072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1",
+      "license": "Unlicense AND ISC AND MIT",
+      "evidence": "Pinned upstream release; bundled runtime version / upstream build workflow"
+    },
+    {
+      "name": "yt-dlp repository",
+      "version": "2026.08.19",
+      "role": "build",
+      "archive": "Sources/yt-dlp-repository-2026.08.19.tar.gz",
+      "url": "https://codeload.github.com/yt-dlp/yt-dlp/tar.gz/refs/tags/2026.08.19",
+      "sha256": "a0779c45179a846986a852bce31bddbe9259b594574f75c0ec146d0567058f7e",
+      "license": "Unlicense; see THIRD_PARTY_LICENSES.txt",
+      "evidence": "Pinned upstream release; bundled runtime version / upstream build workflow"
+    },
+    {
+      "name": "yt-dlp-ejs",
+      "version": "0.8.0",
+      "role": "runtime",
+      "archive": "Sources/yt_dlp_ejs-0.8.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz",
+      "sha256": "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e",
+      "license": "Unlicense AND ISC AND MIT",
+      "evidence": "yt-dlp 2026.08.19 bundle/requirements/macos*.txt; PyPI sdist metadata"
+    },
+    {
+      "name": "zlib",
+      "version": "1.3.1",
+      "role": "runtime-native",
+      "archive": "Sources/zlib-1.3.1.tar.gz",
+      "url": "https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz",
+      "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+      "license": "zlib",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    },
+    {
+      "name": "zstd",
+      "version": "1.5.7",
+      "role": "runtime-native",
+      "archive": "Sources/zstd-1.5.7.tar.gz",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+      "sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+      "license": "BSD-3-Clause",
+      "evidence": "curl-impersonate 2.0.0 CMakeLists.txt pinned URL and SHA-256; zstd 1.5.7 also confirmed in standalone bundled dylib"
+    }
+  ],
+  "scope": "Source materials for pinned SiftX macOS arm64 runtime, plus upstream build inputs. Build-only inputs are labelled separately."
+}

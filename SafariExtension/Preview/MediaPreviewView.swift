@@ -18,8 +18,8 @@ struct MediaPreviewView: View {
     var body: some View {
         ZStack {
             Color.black
-            if candidate.transport == .youtube {
-                YouTubePreviewPlayer(candidate: candidate) { message in
+            if candidate.transport.usesWebPlayer {
+                SitePreviewPlayer(candidate: candidate) { message in
                     playback.loading = false
                     playback.error = message
                 }
@@ -37,7 +37,7 @@ struct MediaPreviewView: View {
                     Image(systemName: "exclamationmark.circle").font(.title)
                     Text(error).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
                     Button("重试") {
-                        if candidate.transport == .youtube {
+                        if candidate.transport.usesWebPlayer {
                             playback.loading = true
                             playback.error = nil
                             webPreviewID = UUID()
@@ -82,10 +82,10 @@ struct MediaPreviewView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(color: .black.opacity(0.35), radius: 14, y: 6)
         .task(id: candidate.id) {
-            if candidate.transport != .youtube { await playback.load(candidate) }
+            if !candidate.transport.usesWebPlayer { await playback.load(candidate) }
         }
         .task(id: webPreviewID) {
-            guard candidate.transport == .youtube else { return }
+            guard candidate.transport.usesWebPlayer else { return }
             do { try await Task.sleep(for: .seconds(20)) } catch { return }
             if playback.loading {
                 playback.loading = false
@@ -208,7 +208,7 @@ private struct NativePreviewPlayer: NSViewRepresentable {
     static func dismantleNSView(_ view: AVPlayerView, coordinator: ()) { view.player?.pause(); view.player = nil }
 }
 
-private struct YouTubePreviewPlayer: NSViewRepresentable {
+private struct SitePreviewPlayer: NSViewRepresentable {
     let candidate: MediaCandidate
     var finished: @MainActor (String?) -> Void
     func makeCoordinator() -> Coordinator { Coordinator(finished: finished) }
@@ -218,11 +218,17 @@ private struct YouTubePreviewPlayer: NSViewRepresentable {
         configuration.mediaTypesRequiringUserActionForPlayback = []
         let view = WKWebView(frame: .zero, configuration: configuration)
         view.navigationDelegate = context.coordinator
-        if let canonical = YouTubeURL.canonical(candidate.sourceURL),
+        let playerURL: URL?
+        if candidate.transport == .bilibili {
+            playerURL = BilibiliURL.previewURL(candidate.sourceURL)
+        } else if let canonical = YouTubeURL.canonical(candidate.sourceURL),
            let id = URLComponents(url: canonical, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "v" })?.value,
            let url = URL(string: "https://www.youtube-nocookie.com/embed/\(id)?autoplay=1&playsinline=1&rel=0") {
-            var request = URLRequest(url: url)
-            request.setValue("https://com.siftx.SiftX", forHTTPHeaderField: "Referer")
+            playerURL = url
+        } else { playerURL = nil }
+        if let playerURL {
+            var request = URLRequest(url: playerURL)
+            request.setValue(candidate.transport == .bilibili ? "https://www.bilibili.com/" : "https://com.siftx.SiftX", forHTTPHeaderField: "Referer")
             view.load(request)
         }
         return view
