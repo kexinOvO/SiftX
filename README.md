@@ -22,6 +22,20 @@
 3. 打开网页并播放媒体，点击 Safari 工具栏中的 SiftX 图标，选择需要的内容。
 4. 在 SiftX 中查看进度与下载记录；文件默认保存到“下载”文件夹，可在设置中更改。
 
+## 开发与测试
+
+本项目由 Swift/SwiftUI 主程序、原生 Safari Extension、Safari Web Extension（JavaScript 探针）以及 Swift Package 核心组成。最低部署目标为 **macOS 14**；工程的原生 App 构建目标为 **Apple Silicon (arm64)**。
+
+推荐使用 Xcode 与 Swift 6，并安装 Node.js 22+、Python 3.11+。无需启动 Safari 的快速测试：
+
+```sh
+sh Scripts/test.sh
+```
+
+该命令运行 Swift 核心/状态/预览测试、Node.js 探针测试以及 Python 扩展配置检查。需要 FFmpeg 与本地 HTTP fixture 的下载集成测试须单独运行；部分预览测试在缺少 fixture 服务时会跳过。详见 [测试指南](docs/TESTING.md)。
+
+欢迎参与改进，提交方式与工程生成注意事项参见 [贡献指南](CONTRIBUTING.md)。历史实机/功能验证记录见 [VERIFICATION.md](VERIFICATION.md)，不代表当前提交的 CI 结果。
+
 ## 使用须知
 
 请仅下载您拥有版权或已获得授权的素材，并遵守相关法律法规及来源网站的使用条款。资源能否下载取决于其访问权限与可用状态。
