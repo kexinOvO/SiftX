@@ -122,11 +122,17 @@ enum ExtractedMedia {
         let supported = all.filter(\.supported)
         let audios = supported.filter { $0.ext == "m4a" && $0.vcodec == "none" && $0.audio }
         let audio = audios.max { ($0.abr ?? $0.tbr ?? 0) < ($1.abr ?? $1.tbr ?? 0) }
-        let videos = supported.filter {
-            $0.ext == "mp4" && $0.video && ($0.audio || (($0.acodec == nil || $0.acodec == "none") && audio != nil))
-                && (1...32768).contains($0.height ?? 0) && (1...32768).contains($0.width ?? 0)
-        }.sorted {
-            ($0.height ?? 0, $0.fps ?? 0, $0.tbr ?? 0) > ($1.height ?? 0, $1.fps ?? 0, $1.tbr ?? 0)
+        let hasSeparateAudio = audio != nil
+        let videos = supported.filter { format in
+            guard format.ext == "mp4", format.video,
+                  let width = format.width, (1...32768).contains(width),
+                  let height = format.height, (1...32768).contains(height) else { return false }
+            if format.audio { return true }
+            return hasSeparateAudio && (format.acodec == nil || format.acodec == "none")
+        }.sorted { left, right in
+            let leftRank = (left.height ?? 0, left.fps ?? 0, left.tbr ?? 0)
+            let rightRank = (right.height ?? 0, right.fps ?? 0, right.tbr ?? 0)
+            return leftRank > rightRank
         }
         var sizes = Set<String>()
         var choices = videos.filter { sizes.insert("\($0.width ?? 0)x\($0.height ?? 0)").inserted }.prefix(20).map { format in

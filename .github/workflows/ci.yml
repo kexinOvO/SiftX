@@ -1,0 +1,40 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe-and-configuration:
+    name: JavaScript and configuration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Safari and packaging contracts
+        run: python3 -m unittest discover -s Tests/ConfigurationTests -p 'test_*.py'
+      - name: Test Safari probe and session isolation
+        run: node --test Tests/ProbeTests/*.test.cjs
+
+  swift-package:
+    name: Swift package on macOS
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: swift --version
+      - name: Run Swift core, toolbar and preview unit tests
+        run: swift test
