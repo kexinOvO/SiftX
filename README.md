@@ -2,9 +2,11 @@
   <img src="docs/images/app-icon.png" alt="SiftX 应用图标" width="120">
 </p>
 
-# SiftX
+<h1 align="center">SiftX</h1>
 
-一款适用于 macOS 的下载工具，在 Safari 中发现媒体，在 Mac 上管理和保存下载。
+<p align="center">
+  <sub>一款适用于 macOS 的下载工具，在 Safari 中发现媒体，在 Mac 上管理和保存下载。</sub>
+</p>
 
 ![SiftX 下载管理界面](docs/images/download-manager.png)
 
