@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/images/app-icon.png" alt="SiftX 应用图标" width="120">
+</p>
+
 # SiftX
 
 一款适用于 macOS 的下载工具，在 Safari 中发现媒体，在 Mac 上管理和保存下载。
